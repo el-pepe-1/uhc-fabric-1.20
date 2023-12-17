@@ -53,11 +53,7 @@ public class UhcClient implements ClientModInitializer {
    }
 
    private static void registerModelsPredicates() {
-      ModelPredicateProviderRegistry.register(ModItems.NIGHT_VISION_HELMET, new Identifier("broken"), (stack, world, entity, seed) -> {
-         return NightVisionHelmetItem.isBroken(stack) ? 1.0F : 0.0F;
-      });
-      ModelPredicateProviderRegistry.register(ModItems.HARPOON, new Identifier("shooting"), (stack, world, entity, seed) -> {
-         return (float)stack.getOrCreateNbt().getByte("shooting");
-      });
+      ModelPredicateProviderRegistry.register(ModItems.NIGHT_VISION_HELMET, new Identifier("broken"), (stack, world, entity, seed) -> NightVisionHelmetItem.isBroken(stack) ? 1.0F : 0.0F);
+      ModelPredicateProviderRegistry.register(ModItems.HARPOON, new Identifier("shooting"), (stack, world, entity, seed) -> stack.getOrCreateNbt().getByte("shooting"));
    }
 }

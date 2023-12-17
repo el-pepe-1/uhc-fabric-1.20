@@ -13,7 +13,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
@@ -21,7 +20,6 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,24 +32,21 @@ public class RadarBlock extends Block {
         super(settings);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack stack = player.getStackInHand(hand);
         if (stack.isOf(ModItems.RUBY) && !(Boolean) state.get(ACTIVE)) {
             if (world.isClient()) {
                 world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 1.0F, 1.75F, true);
             } else {
-                PlayerEntity nearest = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 100.0, (entity) -> {
-                    if (!entity.equals(player) && entity instanceof PlayerEntity playerEntity) {
-                        return !playerEntity.isCreative() && !playerEntity.isSpectator();
-                    }
-
-                    return false;
-                });
+                PlayerEntity nearest = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), SEARCH_DISTANCE,
+                        entity -> entity instanceof PlayerEntity playerOfEntity && entity != player && !playerOfEntity.isCreative() && !playerOfEntity.isSpectator());
                 if (nearest != null) {
                     world.setBlockState(pos, state.with(ACTIVE, true));
-                    player.sendMessage(Text.translatable("block.uhc.radar_block.found_player", 100.0));
+                    player.sendMessage(Text.translatable("block.uhc.radar_block.found_player", SEARCH_DISTANCE));
                 } else {
-                    player.sendMessage(Text.translatable("block.uhc.radar_block.player_not_found", 100.0));
+                    player.sendMessage(Text.translatable("block.uhc.radar_block.player_not_found", SEARCH_DISTANCE));
                 }
 
                 stack.decrement(1);
@@ -61,18 +56,24 @@ public class RadarBlock extends Block {
         return ActionResult.SUCCESS;
     }
 
+    @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
         return super.getPlacementState(ctx).with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(ACTIVE, false);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public BlockState rotate(BlockState state, BlockRotation rotation) {
         return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public BlockState mirror(BlockState state, BlockMirror mirror) {
         return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, ACTIVE);
     }

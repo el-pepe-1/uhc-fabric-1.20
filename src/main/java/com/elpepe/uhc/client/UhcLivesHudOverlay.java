@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 public class UhcLivesHudOverlay implements HudRenderCallback {
     private static final Identifier UHC_HEART = new Identifier(Uhc.MOD_ID, "textures/item/dragon_heart.png");
 
+    @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client != null) {

@@ -2,7 +2,7 @@ package com.elpepe.uhc.block;
 
 import com.elpepe.uhc.block.entity.CastIronCauldronBlockEntity;
 import com.elpepe.uhc.block.entity.ModBlockEntities;
-import com.elpepe.uhc.item.food.JamFood;
+import com.elpepe.uhc.item.food.JamFoodItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -40,30 +40,41 @@ public class CastIronCauldronBlock extends BlockWithEntity implements BlockEntit
         return super.getPlacementState(ctx).with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(ABOVE_CAMPFIRE, false);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public BlockState rotate(BlockState state, BlockRotation rotation) {
         return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public BlockState mirror(BlockState state, BlockMirror mirror) {
         return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(ABOVE_CAMPFIRE, WATER_LEVEL, FACING);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
     }
 
+    @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
+    @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new CastIronCauldronBlockEntity(pos, state);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -76,6 +87,8 @@ public class CastIronCauldronBlock extends BlockWithEntity implements BlockEntit
         }
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient()) {
             CastIronCauldronBlockEntity blockEntity = (CastIronCauldronBlockEntity) world.getBlockEntity(pos);
@@ -109,7 +122,7 @@ public class CastIronCauldronBlock extends BlockWithEntity implements BlockEntit
             resultContainer = foodContainers.get(outputItem);
         } else if (outputItem instanceof StewItem) {
             resultContainer = Items.BOWL;
-        } else if (outputItem instanceof JamFood) {
+        } else if (outputItem instanceof JamFoodItem) {
             resultContainer = Items.GLASS_BOTTLE;
         }
 
@@ -119,6 +132,7 @@ public class CastIronCauldronBlock extends BlockWithEntity implements BlockEntit
     private void getItemStackFromOutputSlot(PlayerEntity player, CastIronCauldronBlockEntity blockEntity) {
     }
 
+    @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return checkType(type, ModBlockEntities.CAST_IRON_CAULDRON_BLOCK_ENTITY_BLOCK_ENTITY, (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }

@@ -89,12 +89,14 @@ public class CastIronCauldronBlockEntity extends BlockEntity implements Extended
 
     }
 
+    @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, this.inventory);
         nbt.putInt("progress", this.progress);
     }
 
+    @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, this.inventory);
@@ -109,18 +111,22 @@ public class CastIronCauldronBlockEntity extends BlockEntity implements Extended
         this.getStack(3).decrement(1);
     }
 
+    @Override
     public DefaultedList<ItemStack> getItems() {
         return this.inventory;
     }
 
+    @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(this.pos);
     }
 
+    @Override
     public Text getDisplayName() {
         return Text.translatable("blockentity.uhc.cast_iron_cauldron");
     }
 
+    @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new CastIronCauldronScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
@@ -156,7 +162,7 @@ public class CastIronCauldronBlockEntity extends BlockEntity implements Extended
         this.getStack(0).decrement(1);
         this.getStack(1).decrement(1);
         this.getStack(2).decrement(1);
-        this.setStack(3, new ItemStack(recipe.get().getResult(null).getItem(), recipe.get().getResult(null).getCount() * state.get(CastIronCauldronBlock.WATER_LEVEL)));
+        this.setStack(3, new ItemStack(recipe.get().getResult().getItem(), recipe.get().getResult().getCount() * state.get(CastIronCauldronBlock.WATER_LEVEL)));
     }
 
     private boolean hasCraftingFinished() {
@@ -169,8 +175,8 @@ public class CastIronCauldronBlockEntity extends BlockEntity implements Extended
 
     private boolean hasRecipe(BlockState state) {
         Optional<CastIronCauldronRecipe> recipe = this.getCurrentRecipe();
-        return recipe.isPresent() && this.canInsertAmountIntoOutputSlot(recipe.get().getResult(null)) &&
-                this.canInsertItemIntoOutputSlot(recipe.get().getResult(null).getItem()) && this.hasWater(state) && this.onFire();
+        return recipe.isPresent() && this.canInsertAmountIntoOutputSlot(recipe.get().getResult()) &&
+                this.canInsertItemIntoOutputSlot(recipe.get().getResult().getItem()) && this.hasWater(state) && this.onFire();
     }
 
     private boolean hasWater(BlockState state) {

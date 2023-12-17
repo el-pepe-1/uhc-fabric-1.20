@@ -12,6 +12,7 @@ public class FoxGraceHudOverlay implements HudRenderCallback {
     private static final Identifier JUMP_STRENGTH_BAR = new Identifier(Uhc.MOD_ID, "textures/gui/jump_strength_bar.png");
     private static final Identifier JUMP_STRENGTH_BAR_BG = new Identifier(Uhc.MOD_ID, "textures/gui/jump_strength_bar_background.png");
 
+    @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client != null) {

@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 public class NightVisionHelmetHudOverlay implements HudRenderCallback {
     private static final Identifier HEART = new Identifier("textures/gui/icons.png");
 
+    @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client != null) {

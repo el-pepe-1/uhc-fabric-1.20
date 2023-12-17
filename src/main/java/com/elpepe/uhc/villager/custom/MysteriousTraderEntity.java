@@ -5,128 +5,137 @@ import com.elpepe.uhc.entity.goal.EntityWithHome;
 import com.elpepe.uhc.entity.goal.FindHomeGoal;
 import com.elpepe.uhc.entity.goal.SleepGoal;
 import com.elpepe.uhc.villager.ModTradeOffers;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ActionResult;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.EscapeDangerGoal;
-import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.MobNavigation;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.MerchantEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOfferList;
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOfferList;
 import net.minecraft.village.TradeOffers;
-import net.minecraft.entity.passive.MerchantEntity;
-import net.minecraft.entity.ai.goal.LongDoorInteractGoal;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class MysteriousTraderEntity extends MerchantEntity implements EntityWithHome {
-   private BlockPos bed;
+    private static final String HOME_KEY = "home";
+    private BlockPos bed;
 
-   public MysteriousTraderEntity(EntityType<? extends MerchantEntity> entityType, World world) {
-      super(entityType, world);
-      this.bed = BlockPos.ORIGIN;
-      ((MobNavigation)this.getNavigation()).setCanPathThroughDoors(true);
-      this.getNavigation().setCanSwim(true);
-   }
+    public MysteriousTraderEntity(EntityType<? extends MysteriousTraderEntity> entityType, World world) {
+        super(entityType, world);
+        this.bed = BlockPos.ORIGIN;
+        ((MobNavigation) this.getNavigation()).setCanPathThroughDoors(true);
+        this.getNavigation().setCanSwim(true);
+    }
 
-   public MysteriousTraderEntity(World world) {
-      super(ModEntities.MYSTERIOUS_TRADER, world);
-      this.bed = BlockPos.ORIGIN;
-      ((MobNavigation)this.getNavigation()).setCanPathThroughDoors(true);
-      this.getNavigation().setCanSwim(true);
-   }
+    public MysteriousTraderEntity(World world) {
+        super(ModEntities.MYSTERIOUS_TRADER, world);
+        this.bed = BlockPos.ORIGIN;
+        ((MobNavigation) this.getNavigation()).setCanPathThroughDoors(true);
+        this.getNavigation().setCanSwim(true);
+    }
 
-   public static DefaultAttributeContainer.class_5133 createMysteriousTraderAttributes() {
-      return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5).add(EntityAttributes.GENERIC_ARMOR, 0.5).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0);
-   }
+    public static DefaultAttributeContainer.Builder createMysteriousTraderAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5)
+                .add(EntityAttributes.GENERIC_ARMOR, 0.5)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0);
+    }
 
-   protected void initGoals() {
-      this.goalSelector.add(6, new SleepGoal(this, 0.65F));
-      this.goalSelector.add(5, new EscapeDangerGoal(this, 0.6499999761581421));
-      this.goalSelector.add(5, new FindHomeGoal(this, 32, 40));
-      this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.5));
-      this.goalSelector.add(3, new LookAroundGoal(this));
-      this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-      this.goalSelector.add(1, new LongDoorInteractGoal(this, true));
-      super.initGoals();
-   }
+    @Override
+    protected void initGoals() {
+        this.goalSelector.add(6, new SleepGoal<>(this, 0.65F));
+        this.goalSelector.add(5, new EscapeDangerGoal(this, 0.6499999761581421));
+        this.goalSelector.add(5, new FindHomeGoal<>(this, 32, 40));
+        this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.5));
+        this.goalSelector.add(3, new LookAroundGoal(this));
+        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(1, new LongDoorInteractGoal(this, true));
+        super.initGoals();
+    }
 
-   public void writeCustomDataToNbt(NbtCompound nbt) {
-      super.writeCustomDataToNbt(nbt);
-      nbt.put("home", NbtHelper.fromBlockPos(this.getHome()));
-   }
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.put(HOME_KEY, NbtHelper.fromBlockPos(this.getHome()));
+    }
 
-   public void readCustomDataFromNbt(NbtCompound nbt) {
-      super.readCustomDataFromNbt(nbt);
-      this.setHome(NbtHelper.toBlockPos(nbt.getCompound("home")));
-   }
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.setHome(NbtHelper.toBlockPos(nbt.getCompound(HOME_KEY)));
+    }
 
-   public ActionResult interactMob(PlayerEntity player, Hand hand) {
-      ItemStack itemStack = player.getStackInHand(hand);
-      if (!itemStack.isOf(Items.VILLAGER_SPAWN_EGG) && this.isAlive() && !this.hasCustomer() && !this.isBaby()) {
-         if (hand == Hand.MAIN_HAND) {
-            player.incrementStat(Stats.TALKED_TO_VILLAGER);
-         }
-
-         if (this.getOffers().isEmpty()) {
-            return ActionResult.success(this.getWorld().isClient);
-         } else {
-            if (!this.getWorld().isClient) {
-               this.setCustomer(player);
-               this.sendOffers(player, this.getDisplayName(), 1);
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (!itemStack.isOf(Items.VILLAGER_SPAWN_EGG) && this.isAlive() && !this.hasCustomer() && !this.isBaby()) {
+            if (hand == Hand.MAIN_HAND) {
+                player.incrementStat(Stats.TALKED_TO_VILLAGER);
             }
 
+            if (!this.getOffers().isEmpty()) {
+                if (!this.getWorld().isClient) {
+                    this.setCustomer(player);
+                    this.sendOffers(player, this.getDisplayName(), 1);
+                }
+            }
             return ActionResult.success(this.getWorld().isClient);
-         }
-      } else {
-         return super.interactMob(player, hand);
-      }
-   }
+        } else {
+            return super.interactMob(player, hand);
+        }
+    }
 
-   protected void afterUsing(TradeOffer offer) {
-      if (offer.shouldRewardPlayerExperience()) {
-         int i = 3 + this.random.nextInt(4);
-         this.getWorld().spawnEntity(new ExperienceOrbEntity(this.getWorld(), this.getX(), this.getY() + 0.5, this.getZ(), i));
-      }
+    @Override
+    protected void afterUsing(TradeOffer offer) {
+        if (offer.shouldRewardPlayerExperience()) {
+            int i = 3 + this.random.nextInt(4);
+            this.getWorld().spawnEntity(new ExperienceOrbEntity(this.getWorld(), this.getX(), this.getY() + 0.5, this.getZ(), i));
+        }
 
-   }
+    }
 
-   protected void fillRecipes() {
-      TradeOffers.class_1652[] factorys = (TradeOffers.class_1652[])ModTradeOffers.MYSTERIOUS_TRADER_TRADES.get(1);
-      if (factorys != null) {
-         TradeOfferList tradeOfferList = this.getOffers();
-         this.fillRecipesFromPool(tradeOfferList, factorys, 3);
-      }
-   }
+    @Override
+    protected void fillRecipes() {
+        TradeOffers.Factory[] factories = ModTradeOffers.MYSTERIOUS_TRADER_TRADES.get(1);
+        if (factories != null) {
+            TradeOfferList tradeOfferList = this.getOffers();
+            this.fillRecipesFromPool(tradeOfferList, factories, 3);
+        }
+    }
 
-   public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-      return null;
-   }
+    @Override
+    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return ModEntities.MYSTERIOUS_TRADER.create(world);
+    }
 
-   public boolean isPersistent() {
-      return true;
-   }
+    @Override
+    public boolean isPersistent() {
+        return true;
+    }
 
-   public void setHome(BlockPos home) {
-      this.bed = home;
-   }
+    @Override
+    public BlockPos getHome() {
+        return this.bed;
+    }
 
-   public BlockPos getHome() {
-      return this.bed;
-   }
+    @Override
+    public void setHome(BlockPos home) {
+        this.bed = home;
+    }
 }

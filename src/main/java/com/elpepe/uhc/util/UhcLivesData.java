@@ -8,23 +8,25 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class UhcLivesData {
-   public static int setLives(ServerPlayerEntity player, int amount) {
-      IEntityDataSaver dataSaver = (IEntityDataSaver)player;
-      NbtCompound nbt = dataSaver.getPersistentData();
-      int lives = Math.min(Math.max(amount, 0), 3);
-      nbt.putInt("lives", lives);
-      syncUhcLives(player, lives);
-      return lives;
-   }
+    private static final String LIVES_KEY = "lives";
 
-   public static int getLives(IEntityDataSaver player) {
-      NbtCompound nbt = player.getPersistentData();
-      return nbt.getInt("lives");
-   }
+    public static int setLives(ServerPlayerEntity player, int amount) {
+        IEntityDataSaver dataSaver = (IEntityDataSaver) player;
+        NbtCompound nbt = dataSaver.getPersistentData();
+        int lives = Math.min(Math.max(amount, 0), 3);
+        nbt.putInt(LIVES_KEY, lives);
+        syncUhcLives(player, lives);
+        return lives;
+    }
 
-   private static void syncUhcLives(ServerPlayerEntity player, int amount) {
-      PacketByteBuf buf = PacketByteBufs.create();
-      buf.writeInt(amount);
-      ServerPlayNetworking.send(player, ModMessages.UHC_LIVES_SYNC_ID, buf);
-   }
+    public static int getLives(IEntityDataSaver player) {
+        NbtCompound nbt = player.getPersistentData();
+        return nbt.getInt(LIVES_KEY);
+    }
+
+    private static void syncUhcLives(ServerPlayerEntity player, int amount) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeInt(amount);
+        ServerPlayNetworking.send(player, ModMessages.UHC_LIVES_SYNC_ID, buf);
+    }
 }

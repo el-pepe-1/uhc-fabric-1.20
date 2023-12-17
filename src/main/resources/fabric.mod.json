@@ -16,10 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.elpepe.Uhc"
+			"com.elpepe.uhc.Uhc"
+		],
+		"client": [
+			"com.elpepe.uhc.UhcClient"
 		],
 		"fabric-datagen": [
-			"com.elpepe.UhcDataGenerator"
+			"com.elpepe.uhc.UhcDataGenerator"
 		]
 	},
 	"mixins": [

@@ -1,7 +1,7 @@
 package com.elpepe.uhc.world.gen;
 
 public class ModWorldGeneration {
-   public static void generateModWorldGen() {
-      ModOreGeneration.generateOres();
-   }
+    public static void generateModWorldGen() {
+        ModOreGeneration.generateOres();
+    }
 }
