@@ -4,49 +4,49 @@ import com.elpepe.uhc.entity.ModEntities;
 import com.elpepe.uhc.entity.goal.EntityWithHome;
 import com.elpepe.uhc.entity.goal.FindHomeGoal;
 import com.elpepe.uhc.entity.goal.SleepGoal;
-import net.minecraft.class_1299;
-import net.minecraft.class_1308;
-import net.minecraft.class_1361;
-import net.minecraft.class_1376;
-import net.minecraft.class_1394;
-import net.minecraft.class_1588;
-import net.minecraft.class_1657;
-import net.minecraft.class_1937;
-import net.minecraft.class_2338;
-import net.minecraft.class_5132;
-import net.minecraft.class_5134;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 
-public class GoblinEntity extends class_1588 implements EntityWithHome {
-   private class_2338 home;
+public class GoblinEntity extends HostileEntity implements EntityWithHome {
+   private BlockPos home;
 
-   public GoblinEntity(class_1299<? extends class_1588> entityType, class_1937 world) {
+   public GoblinEntity(EntityType<? extends HostileEntity> entityType, World world) {
       super(entityType, world);
-      this.home = class_2338.field_10980;
+      this.home = BlockPos.ORIGIN;
    }
 
-   public GoblinEntity(class_1937 world) {
+   public GoblinEntity(World world) {
       super(ModEntities.GOBLIN_ENTITY, world);
-      this.home = class_2338.field_10980;
+      this.home = BlockPos.ORIGIN;
    }
 
-   public static class_5132.class_5133 createGoblinAttributes() {
-      return class_1308.method_26828().method_26868(class_5134.field_23716, 20.0).method_26868(class_5134.field_23719, 0.5).method_26868(class_5134.field_23724, 0.5).method_26868(class_5134.field_23721, 1.0).method_26868(class_5134.field_23717, 48.0);
+   public static DefaultAttributeContainer.class_5133 createGoblinAttributes() {
+      return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5).add(EntityAttributes.GENERIC_ARMOR, 0.5).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0);
    }
 
-   protected void method_5959() {
-      this.field_6201.method_6277(5, new SleepGoal(this, 0.5F));
-      this.field_6201.method_6277(4, new FindHomeGoal(this, 32, 40));
-      this.field_6201.method_6277(3, new class_1394(this, 0.5));
-      this.field_6201.method_6277(2, new class_1376(this));
-      this.field_6201.method_6277(1, new class_1361(this, class_1657.class, 6.0F));
-      super.method_5959();
+   protected void initGoals() {
+      this.goalSelector.add(5, new SleepGoal(this, 0.5F));
+      this.goalSelector.add(4, new FindHomeGoal(this, 32, 40));
+      this.goalSelector.add(3, new WanderAroundFarGoal(this, 0.5));
+      this.goalSelector.add(2, new LookAroundGoal(this));
+      this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+      super.initGoals();
    }
 
-   public void setHome(class_2338 home) {
+   public void setHome(BlockPos home) {
       this.home = home;
    }
 
-   public class_2338 getHome() {
+   public BlockPos getHome() {
       return this.home;
    }
 }

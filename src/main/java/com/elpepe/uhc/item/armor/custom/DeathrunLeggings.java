@@ -7,78 +7,78 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import java.util.List;
 import java.util.Random;
-import net.minecraft.class_1304;
-import net.minecraft.class_1309;
-import net.minecraft.class_1320;
-import net.minecraft.class_1322;
-import net.minecraft.class_1738;
-import net.minecraft.class_1741;
-import net.minecraft.class_1792;
-import net.minecraft.class_1799;
-import net.minecraft.class_1836;
-import net.minecraft.class_1937;
-import net.minecraft.class_243;
-import net.minecraft.class_2487;
-import net.minecraft.class_2561;
-import net.minecraft.class_3218;
-import net.minecraft.class_437;
-import net.minecraft.class_5134;
-import net.minecraft.class_1322.class_1323;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.world.World;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.Text;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.attribute.EntityAttributeModifier.class_1323;
 import org.jetbrains.annotations.Nullable;
 
-public class DeathrunLeggings extends class_1738 implements TickableArmor {
-   private final Multimap<class_1320, class_1322> defaultModifiers;
+public class DeathrunLeggings extends ArmorItem implements TickableArmor {
+   private final Multimap<EntityAttribute, EntityAttributeModifier> defaultModifiers;
 
-   public DeathrunLeggings(class_1741 material, class_1738.class_8051 type, class_1792.class_1793 settings) {
+   public DeathrunLeggings(ArmorMaterial material, ArmorItem.class_8051 type, Item.class_1793 settings) {
       super(material, type, settings);
-      ImmutableMultimap.Builder<class_1320, class_1322> builder = ImmutableMultimap.builder();
-      builder.put(class_5134.field_23724, new class_1322("Armor modifier", (double)material.method_48403(type), class_1323.field_6328));
-      builder.put(class_5134.field_23725, new class_1322("Armor toughness", (double)material.method_7700(), class_1323.field_6328));
-      builder.put(class_5134.field_23719, new class_1322("Armor speed", 0.1, class_1323.field_6328));
+      ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+      builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier("Armor modifier", (double)material.getProtection(type), class_1323.ADDITION));
+      builder.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier("Armor toughness", (double)material.getToughness(), class_1323.ADDITION));
+      builder.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("Armor speed", 0.1, class_1323.ADDITION));
       this.defaultModifiers = builder.build();
    }
 
-   public Multimap<class_1320, class_1322> method_7844(class_1304 slot) {
-      return slot == this.field_41933.method_48399() ? this.defaultModifiers : super.method_7844(slot);
+   public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+      return slot == this.type.getEquipmentSlot() ? this.defaultModifiers : super.getAttributeModifiers(slot);
    }
 
-   public void tick(class_1309 user) {
-      if (!user.method_37908().method_8608()) {
-         class_3218 world = (class_3218)user.method_37908();
+   public void tick(LivingEntity user) {
+      if (!user.getWorld().isClient()) {
+         ServerWorld world = (ServerWorld)user.getWorld();
          Random rand = new Random();
          if (rand.nextInt(3) == 2) {
-            class_243 pos = user.method_19538();
+            Vec3d pos = user.getPos();
             double minVelocity = -0.75;
             double maxVelocity = 0.75;
-            class_243 vec = new class_243(rand.nextDouble(minVelocity, maxVelocity), rand.nextDouble(minVelocity, maxVelocity), rand.nextDouble(minVelocity, maxVelocity));
-            ServerUtils.spawnParticle(world, ModParticles.LIGHTNING_PARTICLE, pos.field_1352 + rand.nextDouble(-1.0, 1.0), pos.field_1351 + rand.nextDouble(-1.0, 1.0) + 1.0, pos.field_1350 + rand.nextDouble(-1.0, 1.0), vec);
+            Vec3d vec = new Vec3d(rand.nextDouble(minVelocity, maxVelocity), rand.nextDouble(minVelocity, maxVelocity), rand.nextDouble(minVelocity, maxVelocity));
+            ServerUtils.spawnParticle(world, ModParticles.LIGHTNING_PARTICLE, pos.x + rand.nextDouble(-1.0, 1.0), pos.y + rand.nextDouble(-1.0, 1.0) + 1.0, pos.z + rand.nextDouble(-1.0, 1.0), vec);
          }
 
          if (rand.nextInt(21) == 20) {
-            class_1799 stack = user.method_6118(this.field_41933.method_48399());
-            class_2487 nbt = stack.method_7948();
-            int runtime = nbt.method_10550("runtime");
+            ItemStack stack = user.getEquippedStack(this.type.getEquipmentSlot());
+            NbtCompound nbt = stack.getOrCreateNbt();
+            int runtime = nbt.getInt("runtime");
             if (runtime >= 60) {
-               user.method_5643(user.method_48923().method_48831(), 1.0F);
+               user.damage(user.getDamageSources().magic(), 1.0F);
             }
 
-            if (user.method_5624()) {
-               nbt.method_10569("runtime", runtime + 1);
+            if (user.isSprinting()) {
+               nbt.putInt("runtime", runtime + 1);
             } else {
-               nbt.method_10569("runtime", runtime - 1);
+               nbt.putInt("runtime", runtime - 1);
             }
          }
       }
 
    }
 
-   public void method_7851(class_1799 stack, @Nullable class_1937 world, List<class_2561> tooltip, class_1836 context) {
-      if (class_437.method_25442()) {
-         tooltip.add(class_2561.method_43471("tooltip.uhc.deathrun_leggings"));
+   public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+      if (Screen.hasShiftDown()) {
+         tooltip.add(Text.translatable("tooltip.uhc.deathrun_leggings"));
       } else {
-         tooltip.add(class_2561.method_43471("tooltip.uhc.press_for_info"));
+         tooltip.add(Text.translatable("tooltip.uhc.press_for_info"));
       }
 
-      super.method_7851(stack, world, tooltip, context);
+      super.appendTooltip(stack, world, tooltip, context);
    }
 }

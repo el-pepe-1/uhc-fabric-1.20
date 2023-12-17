@@ -1,14 +1,11 @@
 package com.elpepe.uhc.entity.goal;
 
-import net.minecraft.class_1352;
+import net.minecraft.entity.ai.goal.Goal;
 
-public abstract class IntervalGoal extends class_1352 {
+public abstract class IntervalGoal extends Goal {
    protected int cooldown;
 
-   public IntervalGoal() {
-   }
-
-   public boolean method_6264() {
+   public boolean canStart() {
       if (this.cooldown > 0) {
          --this.cooldown;
          return false;
@@ -18,7 +15,7 @@ public abstract class IntervalGoal extends class_1352 {
       }
    }
 
-   public boolean method_38846() {
+   public boolean shouldRunEveryTick() {
       return true;
    }
 

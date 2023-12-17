@@ -2,41 +2,41 @@ package com.elpepe.uhc.item.tool;
 
 import com.elpepe.uhc.entity.custom.HarpoonProjectileEntity;
 import java.util.List;
-import net.minecraft.class_1268;
-import net.minecraft.class_1271;
-import net.minecraft.class_1657;
-import net.minecraft.class_1792;
-import net.minecraft.class_1799;
-import net.minecraft.class_1836;
-import net.minecraft.class_1937;
-import net.minecraft.class_2561;
-import net.minecraft.class_437;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.world.World;
+import net.minecraft.text.Text;
+import net.minecraft.client.gui.screen.Screen;
 import org.jetbrains.annotations.Nullable;
 
-public class HarpoonItem extends class_1792 {
-   public HarpoonItem(class_1792.class_1793 settings) {
+public class HarpoonItem extends Item {
+   public HarpoonItem(Item.class_1793 settings) {
       super(settings);
    }
 
-   public class_1271<class_1799> method_7836(class_1937 world, class_1657 user, class_1268 hand) {
-      if (!world.method_8608()) {
-         class_1799 stack = user.method_5998(hand);
+   public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+      if (!world.isClient()) {
+         ItemStack stack = user.getStackInHand(hand);
          HarpoonProjectileEntity projectile = new HarpoonProjectileEntity(world, user, stack);
          projectile.setCanFly(80);
-         world.method_8649(projectile);
+         world.spawnEntity(projectile);
       }
 
-      user.method_7357().method_7906(this, 20);
-      return super.method_7836(world, user, hand);
+      user.getItemCooldownManager().set(this, 20);
+      return super.use(world, user, hand);
    }
 
-   public void method_7851(class_1799 stack, @Nullable class_1937 world, List<class_2561> tooltip, class_1836 context) {
-      if (class_437.method_25442()) {
-         tooltip.add(class_2561.method_43471("tooltip.uhc.harpoon"));
+   public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+      if (Screen.hasShiftDown()) {
+         tooltip.add(Text.translatable("tooltip.uhc.harpoon"));
       } else {
-         tooltip.add(class_2561.method_43471("tooltip.uhc.press_for_info"));
+         tooltip.add(Text.translatable("tooltip.uhc.press_for_info"));
       }
 
-      super.method_7851(stack, world, tooltip, context);
+      super.appendTooltip(stack, world, tooltip, context);
    }
 }

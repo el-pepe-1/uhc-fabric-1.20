@@ -6,26 +6,23 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.class_1928;
-import net.minecraft.class_2540;
-import net.minecraft.class_1928.class_5198;
+import net.minecraft.world.GameRules;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.world.GameRules.class_5198;
 
 public class ModGameRules {
-   public static final class_1928.class_4313<class_1928.class_4310> UHC_ENABLED;
-
-   public ModGameRules() {
-   }
+   public static final GameRules.class_4313<GameRules.class_4310> UHC_ENABLED;
 
    public static void registerGameRules() {
-      Uhc.LOGGER.info("Registering game rules for uhc");
+      Uhc.LOGGER.info("Registering Game Rules for " + Uhc.MOD_ID);
    }
 
    static {
-      UHC_ENABLED = GameRuleRegistry.register("uhcEnabled", class_5198.field_24094, GameRuleFactory.createBooleanRule(false, (server, value) -> {
-         server.method_3760().method_14571().forEach((player) -> {
+      UHC_ENABLED = GameRuleRegistry.register("uhcEnabled", class_5198.PLAYER, GameRuleFactory.createBooleanRule(false, (server, value) -> {
+         server.getPlayerManager().getPlayerList().forEach((player) -> {
             UhcLivesData.setLives(player, 3);
-            class_2540 buf = PacketByteBufs.create();
-            buf.writeBoolean(value.method_20753());
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeBoolean(value.get());
             ServerPlayNetworking.send(player, ModMessages.UHC_ENABLED_SYNC_ID, buf);
          });
       }));

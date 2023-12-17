@@ -10,9 +10,6 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 
 public class ModRegistries {
-   public ModRegistries() {
-   }
-
    public static void registerModStuff() {
       registerEntitiesAttributes();
       registerStrippables();

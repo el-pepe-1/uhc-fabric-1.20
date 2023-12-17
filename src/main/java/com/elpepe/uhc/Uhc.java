@@ -23,30 +23,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Uhc implements ModInitializer {
-   public static final String MOD_ID = "uhc";
-   public static final Logger LOGGER = LoggerFactory.getLogger("uhc");
+    public static final String MOD_ID = "uhc";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-   public Uhc() {
-   }
-
-   public void onInitialize() {
-      ModItemGroups.registerItemGroups();
-      ModItems.registerModItems();
-      ModBlocks.registerBlocks();
-      ModBlockEntities.registerBlockEntities();
-      ModScreenHandlers.registerScreenHandlers();
-      ModEntities.registerModEntities();
-      ModEnchantments.registerEnchantments();
-      ModEffects.registerEffects();
-      ModParticles.registerParticles();
-      ModSounds.registerSounds();
-      ModCommands.register();
-      ModRecipes.registerRecipes();
-      ModMessages.registerC2SPackets();
-      ModEntityAttributes.registerAttributes();
-      ModGameRules.registerGameRules();
-      ModWorldGeneration.generateModWorldGen();
-      ModFeatures.registerFeatures();
-      ModRegistries.registerModStuff();
-   }
+    public void onInitialize() {
+        ModItemGroups.registerItemGroups();
+        ModItems.registerModItems();
+        ModBlocks.registerBlocks();
+        ModBlockEntities.registerBlockEntities();
+        ModScreenHandlers.registerScreenHandlers();
+        ModEntities.registerModEntities();
+        ModEnchantments.registerEnchantments();
+        ModEffects.registerEffects();
+        ModParticles.registerParticles();
+        ModSounds.registerSounds();
+        ModCommands.register();
+        ModRecipes.registerRecipes();
+        ModMessages.registerC2SPackets();
+        ModEntityAttributes.registerAttributes();
+        ModGameRules.registerGameRules();
+        ModWorldGeneration.generateModWorldGen();
+        ModFeatures.registerFeatures();
+        ModRegistries.registerModStuff();
+    }
 }

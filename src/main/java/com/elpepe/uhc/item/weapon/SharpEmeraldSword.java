@@ -1,16 +1,16 @@
 package com.elpepe.uhc.item.weapon;
 
-import net.minecraft.class_1792;
-import net.minecraft.class_1799;
-import net.minecraft.class_1829;
-import net.minecraft.class_1832;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterial;
 
-public class SharpEmeraldSword extends class_1829 {
-   public SharpEmeraldSword(class_1832 toolMaterial, int attackDamage, float attackSpeed, class_1792.class_1793 settings) {
+public class SharpEmeraldSword extends SwordItem {
+   public SharpEmeraldSword(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Item.class_1793 settings) {
       super(toolMaterial, attackDamage, attackSpeed, settings);
    }
 
-   public boolean method_7886(class_1799 stack) {
+   public boolean hasGlint(ItemStack stack) {
       return true;
    }
 }

@@ -2,25 +2,25 @@ package com.elpepe.uhc.entity.client;
 
 import com.elpepe.uhc.entity.ModModelLayers;
 import com.elpepe.uhc.entity.custom.LavaSwordProjectileEntity;
-import net.minecraft.class_2960;
-import net.minecraft.class_4587;
-import net.minecraft.class_4597;
-import net.minecraft.class_5617;
-import net.minecraft.class_927;
+import net.minecraft.util.Identifier;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.MobEntityRenderer;
 
-public class LavaSwordProjectileRenderer extends class_927<LavaSwordProjectileEntity, LavaSwordProjectileModel<LavaSwordProjectileEntity>> {
-   private static final class_2960 TEXTURE = new class_2960("uhc", "textures/entity/lava_sword_projectile.png");
+public class LavaSwordProjectileRenderer extends MobEntityRenderer<LavaSwordProjectileEntity, LavaSwordProjectileModel<LavaSwordProjectileEntity>> {
+   private static final Identifier TEXTURE = new Identifier(Uhc.MOD_ID, "textures/entity/lava_sword_projectile.png");
 
-   public LavaSwordProjectileRenderer(class_5617.class_5618 ctx) {
-      super(ctx, new LavaSwordProjectileModel(ctx.method_32167(ModModelLayers.LAVA_SWORD_PROJECTILE)), 0.0F);
+   public LavaSwordProjectileRenderer(EntityRendererFactory.class_5618 ctx) {
+      super(ctx, new LavaSwordProjectileModel(ctx.getPart(ModModelLayers.LAVA_SWORD_PROJECTILE)), 0.0F);
    }
 
-   public void render(LavaSwordProjectileEntity entity, float yaw, float tickDelta, class_4587 matrices, class_4597 vertexConsumers, int light) {
-      matrices.method_22905(4.0F, 4.0F, 4.0F);
-      super.method_4072(entity, yaw, tickDelta, matrices, vertexConsumers, light);
+   public void render(LavaSwordProjectileEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+      matrices.scale(4.0F, 4.0F, 4.0F);
+      super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
    }
 
-   public class_2960 getTexture(LavaSwordProjectileEntity entity) {
+   public Identifier getTexture(LavaSwordProjectileEntity entity) {
       return TEXTURE;
    }
 }

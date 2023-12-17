@@ -7,101 +7,95 @@ import com.mojang.serialization.DataResult;
 import it.unimi.dsi.fastutil.ints.IntList;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.class_1277;
-import net.minecraft.class_1662;
-import net.minecraft.class_1799;
-import net.minecraft.class_1856;
-import net.minecraft.class_1860;
-import net.minecraft.class_1865;
-import net.minecraft.class_1869;
-import net.minecraft.class_1937;
-import net.minecraft.class_2371;
-import net.minecraft.class_2540;
-import net.minecraft.class_2960;
-import net.minecraft.class_3518;
-import net.minecraft.class_3956;
-import net.minecraft.class_5455;
-import net.minecraft.class_5699;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.recipe.RecipeMatcher;
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.world.World;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.util.dynamic.Codecs;
 
-public class CastIronCauldronRecipe implements class_1860<class_1277> {
-   private final class_1799 output;
-   private final List<class_1856> recipeItems;
+public class CastIronCauldronRecipe implements Recipe<SimpleInventory> {
+   private final ItemStack output;
+   private final List<Ingredient> recipeItems;
 
-   public CastIronCauldronRecipe(List<class_1856> ingredients, class_1799 output) {
+   public CastIronCauldronRecipe(List<Ingredient> ingredients, ItemStack output) {
       this.output = output;
       this.recipeItems = ingredients;
    }
 
-   public boolean matches(class_1277 inventory, class_1937 world) {
-      if (world.method_8608()) {
+   public boolean matches(SimpleInventory inventory, World world) {
+      if (world.isClient()) {
          return false;
       } else {
-         class_1662 recipeMatcher = new class_1662();
+         RecipeMatcher recipeMatcher = new RecipeMatcher();
          int i = 0;
 
-         for(int j = 0; j < inventory.method_5439(); ++j) {
-            class_1799 itemStack = inventory.method_5438(j);
-            if (!itemStack.method_7960()) {
+         for(int j = 0; j < inventory.size(); ++j) {
+            ItemStack itemStack = inventory.getStack(j);
+            if (!itemStack.isEmpty()) {
                ++i;
-               recipeMatcher.method_20478(itemStack, 1);
+               recipeMatcher.addInput(itemStack, 1);
             }
          }
 
-         return i == this.recipeItems.size() && recipeMatcher.method_7402(this, (IntList)null);
+         return i == this.recipeItems.size() && recipeMatcher.match(this, (IntList)null);
       }
    }
 
-   public class_1799 craft(class_1277 inventory, class_5455 registryManager) {
+   public ItemStack craft(SimpleInventory inventory, DynamicRegistryManager registryManager) {
       return this.output;
    }
 
-   public boolean method_8113(int width, int height) {
+   public boolean fits(int width, int height) {
       return true;
    }
 
-   public class_1799 method_8110(class_5455 registryManager) {
+   public ItemStack getOutput(DynamicRegistryManager registryManager) {
       return this.output;
    }
 
-   public class_1799 getResult(class_5455 registryManager) {
-      return this.method_8110(registryManager);
+   public ItemStack getResult(DynamicRegistryManager registryManager) {
+      return this.getOutput(registryManager);
    }
 
-   public class_2371<class_1856> method_8117() {
-      class_2371<class_1856> list = class_2371.method_37434(this.recipeItems.size());
+   public DefaultedList<Ingredient> getIngredients() {
+      DefaultedList<Ingredient> list = DefaultedList.ofSize(this.recipeItems.size());
       list.addAll(this.recipeItems);
       return list;
    }
 
-   public class_2960 method_8114() {
-      return new class_2960("uhc", "cast_iron_cauldron");
+   public Identifier getId() {
+      return new Identifier(Uhc.MOD_ID, "cast_iron_cauldron");
    }
 
-   public class_1865<?> method_8119() {
+   public RecipeSerializer<?> getSerializer() {
       return CastIronCauldronRecipe.Serializer.INSTANCE;
    }
 
-   public class_3956<?> method_17716() {
+   public RecipeType<?> getType() {
       return CastIronCauldronRecipe.Type.INSTANCE;
    }
 
-   public static class Type implements class_3956<CastIronCauldronRecipe> {
+   public static class Type implements RecipeType<CastIronCauldronRecipe> {
       public static final Type INSTANCE = new Type();
       public static final String ID = "cast_iron_cauldron";
-
-      public Type() {
-      }
    }
 
-   public static class Serializer implements class_1865<CastIronCauldronRecipe> {
+   public static class Serializer implements RecipeSerializer<CastIronCauldronRecipe> {
       public static final Serializer INSTANCE = new Serializer();
       public static final String ID = "cast_iron_cauldron";
 
-      public Serializer() {
-      }
-
-      private static Codec<List<class_1856>> validateAmount(Codec<class_1856> delegate, int max) {
-         return class_5699.method_48112(class_5699.method_48112(delegate.listOf(), (list) -> {
+      private static Codec<List<Ingredient>> validateAmount(Codec<Ingredient> delegate, int max) {
+         return Codecs.validate(Codecs.validate(delegate.listOf(), (list) -> {
             return list.size() > max ? DataResult.error(() -> {
                return "Recipe has too many ingredients!";
             }) : DataResult.success(list);
@@ -112,18 +106,18 @@ public class CastIronCauldronRecipe implements class_1860<class_1277> {
          });
       }
 
-      public CastIronCauldronRecipe read(class_2960 id, JsonObject json) {
-         class_2371<class_1856> defaultedList = getIngredients(class_3518.method_15261(json, "ingredients"));
-         class_1799 itemStack = class_1869.method_35228(class_3518.method_15296(json, "output"));
+      public CastIronCauldronRecipe read(Identifier id, JsonObject json) {
+         DefaultedList<Ingredient> defaultedList = getIngredients(JsonHelper.getArray(json, "ingredients"));
+         ItemStack itemStack = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
          return new CastIronCauldronRecipe(defaultedList, itemStack);
       }
 
-      private static class_2371<class_1856> getIngredients(JsonArray json) {
-         class_2371<class_1856> defaultedList = class_2371.method_10211();
+      private static DefaultedList<Ingredient> getIngredients(JsonArray json) {
+         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
 
          for(int i = 0; i < json.size(); ++i) {
-            class_1856 ingredient = class_1856.method_8102(json.get(i), false);
-            if (!ingredient.method_8103()) {
+            Ingredient ingredient = Ingredient.fromJson(json.get(i), false);
+            if (!ingredient.isEmpty()) {
                defaultedList.add(ingredient);
             }
          }
@@ -131,27 +125,27 @@ public class CastIronCauldronRecipe implements class_1860<class_1277> {
          return defaultedList;
       }
 
-      public CastIronCauldronRecipe read(class_2960 id, class_2540 buf) {
-         class_2371<class_1856> inputs = class_2371.method_10213(buf.readInt(), class_1856.field_9017);
+      public CastIronCauldronRecipe read(Identifier id, PacketByteBuf buf) {
+         DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
 
          for(int i = 0; i < inputs.size(); ++i) {
-            inputs.set(i, class_1856.method_8086(buf));
+            inputs.set(i, Ingredient.fromPacket(buf));
          }
 
-         class_1799 output = buf.method_10819();
+         ItemStack output = buf.readItemStack();
          return new CastIronCauldronRecipe(inputs, output);
       }
 
-      public void write(class_2540 buf, CastIronCauldronRecipe recipe) {
-         buf.writeInt(recipe.method_8117().size());
-         Iterator var3 = recipe.method_8117().iterator();
+      public void write(PacketByteBuf buf, CastIronCauldronRecipe recipe) {
+         buf.writeInt(recipe.getIngredients().size());
+         Iterator var3 = recipe.getIngredients().iterator();
 
          while(var3.hasNext()) {
-            class_1856 ingredient = (class_1856)var3.next();
-            ingredient.method_8088(buf);
+            Ingredient ingredient = (Ingredient)var3.next();
+            ingredient.write(buf);
          }
 
-         buf.method_10793(recipe.method_8110((class_5455)null));
+         buf.writeItemStack(recipe.getOutput((DynamicRegistryManager)null));
       }
    }
 }

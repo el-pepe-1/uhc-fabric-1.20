@@ -1,14 +1,14 @@
 package com.elpepe.uhc.entity.goal;
 
 import java.util.Optional;
-import net.minecraft.class_1314;
-import net.minecraft.class_2338;
-import net.minecraft.class_3218;
-import net.minecraft.class_3481;
-import net.minecraft.class_7477;
-import net.minecraft.class_4153.class_4155;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.world.poi.PointOfInterestTypes;
+import net.minecraft.world.poi.PointOfInterestStorage.class_4155;
 
-public class FindHomeGoal<E extends class_1314 & EntityWithHome> extends IntervalGoal {
+public class FindHomeGoal<E extends PathAwareEntity & EntityWithHome> extends IntervalGoal {
    private final E entity;
    private final int radius;
    private final int interval;
@@ -19,13 +19,13 @@ public class FindHomeGoal<E extends class_1314 & EntityWithHome> extends Interva
       this.interval = interval;
    }
 
-   public boolean method_6264() {
-      return (((EntityWithHome)this.entity).getHome() == class_2338.field_10980 || !this.entity.method_37908().method_8320(((EntityWithHome)this.entity).getHome()).method_26164(class_3481.field_16443)) && super.method_6264();
+   public boolean canStart() {
+      return (((EntityWithHome)this.entity).getHome() == BlockPos.ORIGIN || !this.entity.getWorld().getBlockState(((EntityWithHome)this.entity).getHome()).isIn(BlockTags.BEDS)) && super.canStart();
    }
 
-   public void method_6269() {
+   public void start() {
       this.tryFindHome();
-      super.method_6269();
+      super.start();
    }
 
    protected int getInterval() {
@@ -33,19 +33,19 @@ public class FindHomeGoal<E extends class_1314 & EntityWithHome> extends Interva
    }
 
    private void tryFindHome() {
-      class_3218 serverWorld = (class_3218)this.entity.method_37908();
-      class_2338 blockPos = this.entity.method_24515();
-      Optional<class_2338> optional = serverWorld.method_19494().method_20005((registryEntry) -> {
-         return registryEntry.method_40225(class_7477.field_39291);
+      ServerWorld serverWorld = (ServerWorld)this.entity.getWorld();
+      BlockPos blockPos = this.entity.getBlockPos();
+      Optional<BlockPos> optional = serverWorld.getPointOfInterestStorage().getPosition((registryEntry) -> {
+         return registryEntry.matchesKey(PointOfInterestTypes.HOME);
       }, (pos) -> {
          return true;
-      }, class_4155.field_18487, blockPos, this.radius, this.entity.method_6051());
+      }, class_4155.HAS_SPACE, blockPos, this.radius, this.entity.getRandom());
       if (optional.isEmpty()) {
-         ((EntityWithHome)this.entity).setHome(class_2338.field_10980);
+         ((EntityWithHome)this.entity).setHome(BlockPos.ORIGIN);
       }
 
       optional.ifPresent((pos) -> {
-         ((EntityWithHome)this.entity).setHome(pos.method_10062());
+         ((EntityWithHome)this.entity).setHome(pos.toImmutable());
       });
    }
 }

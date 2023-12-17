@@ -1,13 +1,10 @@
 package com.elpepe.uhc.entity;
 
-import net.minecraft.class_2960;
-import net.minecraft.class_5601;
+import net.minecraft.util.Identifier;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 
 public class ModModelLayers {
-   public static final class_5601 HARPOON_PROJECTILE = new class_5601(new class_2960("uhc", "harpoon_projectile"), "main");
-   public static final class_5601 LAVA_SWORD_PROJECTILE = new class_5601(new class_2960("uhc", "lava_sword_projectile"), "main");
-   public static final class_5601 GOBLIN = new class_5601(new class_2960("uhc", "goblin"), "main");
-
-   public ModModelLayers() {
-   }
+   public static final EntityModelLayer HARPOON_PROJECTILE = new EntityModelLayer(new Identifier(Uhc.MOD_ID, "harpoon_projectile"), "main");
+   public static final EntityModelLayer LAVA_SWORD_PROJECTILE = new EntityModelLayer(new Identifier(Uhc.MOD_ID, "lava_sword_projectile"), "main");
+   public static final EntityModelLayer GOBLIN = new EntityModelLayer(new Identifier(Uhc.MOD_ID, "goblin"), "main");
 }

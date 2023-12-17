@@ -1,39 +1,36 @@
 package com.elpepe.uhc.item.food;
 
 import com.elpepe.uhc.effect.ModEffects;
-import net.minecraft.class_1293;
-import net.minecraft.class_1294;
-import net.minecraft.class_4174;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.FoodComponent;
 
 public class ModFoodComponents {
-   public static final class_4174 SWEET_BERRIES_JAM;
-   public static final class_4174 GLOW_BERRIES_JAM;
-   public static final class_4174 POISONOUS_SOUP;
-   public static final class_4174 SEAFOOD_SOUP;
-   public static final class_4174 GOAT_MEAT;
-   public static final class_4174 COOKED_GOAT_MEAT;
-   public static final class_4174 HORSE_LIKE_MEAT;
-   public static final class_4174 COOKED_HORSE_LIKE_MEAT;
-   public static final class_4174 LLAMA_MEAT;
-   public static final class_4174 COOKED_LLAMA_MEAT;
-   public static final class_4174 RAVAGER_MEAT;
-   public static final class_4174 COOKED_RAVAGER_MEAT;
-
-   public ModFoodComponents() {
-   }
+   public static final FoodComponent SWEET_BERRIES_JAM;
+   public static final FoodComponent GLOW_BERRIES_JAM;
+   public static final FoodComponent POISONOUS_SOUP;
+   public static final FoodComponent SEAFOOD_SOUP;
+   public static final FoodComponent GOAT_MEAT;
+   public static final FoodComponent COOKED_GOAT_MEAT;
+   public static final FoodComponent HORSE_LIKE_MEAT;
+   public static final FoodComponent COOKED_HORSE_LIKE_MEAT;
+   public static final FoodComponent LLAMA_MEAT;
+   public static final FoodComponent COOKED_LLAMA_MEAT;
+   public static final FoodComponent RAVAGER_MEAT;
+   public static final FoodComponent COOKED_RAVAGER_MEAT;
 
    static {
-      SWEET_BERRIES_JAM = (new class_4174.class_4175()).method_19238(7).method_19237(0.4F).method_19239(new class_1293(ModEffects.FOX_GRACE_EFFECT, 2400, 1, true, true, true), 1.0F).method_19242();
-      GLOW_BERRIES_JAM = (new class_4174.class_4175()).method_19238(5).method_19237(0.3F).method_19242();
-      POISONOUS_SOUP = (new class_4174.class_4175()).method_19238(3).method_19237(0.15F).method_19239(new class_1293(class_1294.field_5899, 100, 0, true, false, false), 0.65F).method_19239(new class_1293(class_1294.field_5904, 200, 1, true, false, false), 1.0F).method_19239(new class_1293(class_1294.field_5916, 150, 1, true, false, false), 0.85F).method_19242();
-      SEAFOOD_SOUP = (new class_4174.class_4175()).method_19238(5).method_19237(0.3F).method_19239(new class_1293(class_1294.field_5900, 4800, 1, true, false, false), 1.0F).method_19239(new class_1293(class_1294.field_5925, 4800, 1, true, false, false), 1.0F).method_19239(new class_1293(class_1294.field_5923, 4800, 1, true, false, false), 1.0F).method_19242();
-      GOAT_MEAT = (new class_4174.class_4175()).method_19238(1).method_19237(0.15F).method_19236().method_19242();
-      COOKED_GOAT_MEAT = (new class_4174.class_4175()).method_19238(4).method_19237(0.25F).method_19236().method_19241().method_19242();
-      HORSE_LIKE_MEAT = (new class_4174.class_4175()).method_19238(2).method_19237(0.2F).method_19236().method_19242();
-      COOKED_HORSE_LIKE_MEAT = (new class_4174.class_4175()).method_19238(7).method_19237(0.35F).method_19236().method_19242();
-      LLAMA_MEAT = (new class_4174.class_4175()).method_19238(1).method_19237(0.1F).method_19236().method_19242();
-      COOKED_LLAMA_MEAT = (new class_4174.class_4175()).method_19238(5).method_19237(0.25F).method_19236().method_19241().method_19240().method_19242();
-      RAVAGER_MEAT = (new class_4174.class_4175()).method_19238(4).method_19237(0.2F).method_19236().method_19242();
-      COOKED_RAVAGER_MEAT = (new class_4174.class_4175()).method_19238(10).method_19237(0.5F).method_19236().method_19242();
+      SWEET_BERRIES_JAM = (new FoodComponent.class_4175()).hunger(7).saturationModifier(0.4F).statusEffect(new StatusEffectInstance(ModEffects.FOX_GRACE_EFFECT, 2400, 1, true, true, true), 1.0F).build();
+      GLOW_BERRIES_JAM = (new FoodComponent.class_4175()).hunger(5).saturationModifier(0.3F).build();
+      POISONOUS_SOUP = (new FoodComponent.class_4175()).hunger(3).saturationModifier(0.15F).statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 0, true, false, false), 0.65F).statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 1, true, false, false), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 150, 1, true, false, false), 0.85F).build();
+      SEAFOOD_SOUP = (new FoodComponent.class_4175()).hunger(5).saturationModifier(0.3F).statusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 4800, 1, true, false, false), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 4800, 1, true, false, false), 1.0F).statusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 4800, 1, true, false, false), 1.0F).build();
+      GOAT_MEAT = (new FoodComponent.class_4175()).hunger(1).saturationModifier(0.15F).meat().build();
+      COOKED_GOAT_MEAT = (new FoodComponent.class_4175()).hunger(4).saturationModifier(0.25F).meat().snack().build();
+      HORSE_LIKE_MEAT = (new FoodComponent.class_4175()).hunger(2).saturationModifier(0.2F).meat().build();
+      COOKED_HORSE_LIKE_MEAT = (new FoodComponent.class_4175()).hunger(7).saturationModifier(0.35F).meat().build();
+      LLAMA_MEAT = (new FoodComponent.class_4175()).hunger(1).saturationModifier(0.1F).meat().build();
+      COOKED_LLAMA_MEAT = (new FoodComponent.class_4175()).hunger(5).saturationModifier(0.25F).meat().snack().alwaysEdible().build();
+      RAVAGER_MEAT = (new FoodComponent.class_4175()).hunger(4).saturationModifier(0.2F).meat().build();
+      COOKED_RAVAGER_MEAT = (new FoodComponent.class_4175()).hunger(10).saturationModifier(0.5F).meat().build();
    }
 }

@@ -3,30 +3,27 @@ package com.elpepe.uhc.util;
 import com.elpepe.uhc.networking.ModMessages;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.class_2487;
-import net.minecraft.class_2540;
-import net.minecraft.class_3222;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public class UhcLivesData {
-   public UhcLivesData() {
-   }
-
-   public static int setLives(class_3222 player, int amount) {
+   public static int setLives(ServerPlayerEntity player, int amount) {
       IEntityDataSaver dataSaver = (IEntityDataSaver)player;
-      class_2487 nbt = dataSaver.getPersistentData();
+      NbtCompound nbt = dataSaver.getPersistentData();
       int lives = Math.min(Math.max(amount, 0), 3);
-      nbt.method_10569("lives", lives);
+      nbt.putInt("lives", lives);
       syncUhcLives(player, lives);
       return lives;
    }
 
    public static int getLives(IEntityDataSaver player) {
-      class_2487 nbt = player.getPersistentData();
-      return nbt.method_10550("lives");
+      NbtCompound nbt = player.getPersistentData();
+      return nbt.getInt("lives");
    }
 
-   private static void syncUhcLives(class_3222 player, int amount) {
-      class_2540 buf = PacketByteBufs.create();
+   private static void syncUhcLives(ServerPlayerEntity player, int amount) {
+      PacketByteBuf buf = PacketByteBufs.create();
       buf.writeInt(amount);
       ServerPlayNetworking.send(player, ModMessages.UHC_LIVES_SYNC_ID, buf);
    }

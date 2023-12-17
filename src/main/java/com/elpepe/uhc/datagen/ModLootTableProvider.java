@@ -9,34 +9,34 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
       super(dataOutput);
    }
 
-   public void method_10379() {
-      this.method_46025(ModBlocks.CAST_IRON_CAULDRON);
-      this.method_46025(ModBlocks.RADAR_BLOCK);
-      this.method_46025(ModBlocks.GRAY_ICE);
-      this.method_46025(ModBlocks.CRYOGENIC_STONE);
-      this.method_46025(ModBlocks.CRYOGENIC_STONE_STAIRS);
-      this.method_46025(ModBlocks.CRYOGENIC_STONE_BUTTON);
-      this.method_46025(ModBlocks.CRYOGENIC_STONE_PRESSURE_PLATE);
-      this.method_46025(ModBlocks.CRYOGENIC_STONE_WALL);
-      this.method_45988(ModBlocks.CRYOGENIC_STONE_SLAB, this.method_45980(ModBlocks.CRYOGENIC_STONE_SLAB));
-      this.method_46025(ModBlocks.COBBLED_CRYOGENIC_STONE);
-      this.method_46025(ModBlocks.COBBLED_CRYOGENIC_STONE_STAIRS);
-      this.method_46025(ModBlocks.COBBLED_CRYOGENIC_STONE_BUTTON);
-      this.method_46025(ModBlocks.COBBLED_CRYOGENIC_STONE_PRESSURE_PLATE);
-      this.method_46025(ModBlocks.COBBLED_CRYOGENIC_STONE_WALL);
-      this.method_45988(ModBlocks.COBBLED_CRYOGENIC_STONE_SLAB, this.method_45980(ModBlocks.COBBLED_CRYOGENIC_STONE_SLAB));
-      this.method_46025(ModBlocks.DEAD_LOG);
-      this.method_46025(ModBlocks.DEAD_WOOD);
-      this.method_46025(ModBlocks.STRIPPED_DEAD_LOG);
-      this.method_46025(ModBlocks.STRIPPED_DEAD_WOOD);
-      this.method_46025(ModBlocks.DEAD_PLANKS);
-      this.method_46025(ModBlocks.DEAD_PLANKS_STAIRS);
-      this.method_46025(ModBlocks.DEAD_PLANKS_TRAPDOOR);
-      this.method_46025(ModBlocks.DEAD_PLANKS_FENCE);
-      this.method_46025(ModBlocks.DEAD_PLANKS_FENCE_GATE);
-      this.method_46025(ModBlocks.DEAD_PLANKS_BUTTON);
-      this.method_46025(ModBlocks.DEAD_PLANKS_PRESSURE_PLATE);
-      this.method_45988(ModBlocks.DEAD_PLANKS_DOOR, this.method_46022(ModBlocks.DEAD_PLANKS_DOOR));
-      this.method_45988(ModBlocks.DEAD_PLANKS_SLAB, this.method_45980(ModBlocks.DEAD_PLANKS_SLAB));
+   public void generate() {
+      this.addDrop(ModBlocks.CAST_IRON_CAULDRON);
+      this.addDrop(ModBlocks.RADAR_BLOCK);
+      this.addDrop(ModBlocks.GRAY_ICE);
+      this.addDrop(ModBlocks.CRYOGENIC_STONE);
+      this.addDrop(ModBlocks.CRYOGENIC_STONE_STAIRS);
+      this.addDrop(ModBlocks.CRYOGENIC_STONE_BUTTON);
+      this.addDrop(ModBlocks.CRYOGENIC_STONE_PRESSURE_PLATE);
+      this.addDrop(ModBlocks.CRYOGENIC_STONE_WALL);
+      this.addDrop(ModBlocks.CRYOGENIC_STONE_SLAB, this.slabDrops(ModBlocks.CRYOGENIC_STONE_SLAB));
+      this.addDrop(ModBlocks.COBBLED_CRYOGENIC_STONE);
+      this.addDrop(ModBlocks.COBBLED_CRYOGENIC_STONE_STAIRS);
+      this.addDrop(ModBlocks.COBBLED_CRYOGENIC_STONE_BUTTON);
+      this.addDrop(ModBlocks.COBBLED_CRYOGENIC_STONE_PRESSURE_PLATE);
+      this.addDrop(ModBlocks.COBBLED_CRYOGENIC_STONE_WALL);
+      this.addDrop(ModBlocks.COBBLED_CRYOGENIC_STONE_SLAB, this.slabDrops(ModBlocks.COBBLED_CRYOGENIC_STONE_SLAB));
+      this.addDrop(ModBlocks.DEAD_LOG);
+      this.addDrop(ModBlocks.DEAD_WOOD);
+      this.addDrop(ModBlocks.STRIPPED_DEAD_LOG);
+      this.addDrop(ModBlocks.STRIPPED_DEAD_WOOD);
+      this.addDrop(ModBlocks.DEAD_PLANKS);
+      this.addDrop(ModBlocks.DEAD_PLANKS_STAIRS);
+      this.addDrop(ModBlocks.DEAD_PLANKS_TRAPDOOR);
+      this.addDrop(ModBlocks.DEAD_PLANKS_FENCE);
+      this.addDrop(ModBlocks.DEAD_PLANKS_FENCE_GATE);
+      this.addDrop(ModBlocks.DEAD_PLANKS_BUTTON);
+      this.addDrop(ModBlocks.DEAD_PLANKS_PRESSURE_PLATE);
+      this.addDrop(ModBlocks.DEAD_PLANKS_DOOR, this.doorDrops(ModBlocks.DEAD_PLANKS_DOOR));
+      this.addDrop(ModBlocks.DEAD_PLANKS_SLAB, this.slabDrops(ModBlocks.DEAD_PLANKS_SLAB));
    }
 }

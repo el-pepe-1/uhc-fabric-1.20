@@ -1,15 +1,12 @@
 package com.elpepe.uhc.recipe;
 
-import net.minecraft.class_2378;
-import net.minecraft.class_2960;
-import net.minecraft.class_7923;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import net.minecraft.registry.Registries;
 
 public class ModRecipes {
-   public ModRecipes() {
-   }
-
    public static void registerRecipes() {
-      class_2378.method_10230(class_7923.field_41189, new class_2960("uhc", "cast_iron_cauldron"), CastIronCauldronRecipe.Serializer.INSTANCE);
-      class_2378.method_10230(class_7923.field_41188, new class_2960("uhc", "cast_iron_cauldron"), CastIronCauldronRecipe.Type.INSTANCE);
+      Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(Uhc.MOD_ID, "cast_iron_cauldron"), CastIronCauldronRecipe.Serializer.INSTANCE);
+      Registry.register(Registries.RECIPE_TYPE, new Identifier(Uhc.MOD_ID, "cast_iron_cauldron"), CastIronCauldronRecipe.Type.INSTANCE);
    }
 }

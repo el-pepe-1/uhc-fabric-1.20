@@ -1,30 +1,30 @@
 package com.elpepe.uhc.item.food;
 
-import net.minecraft.class_1268;
-import net.minecraft.class_1271;
-import net.minecraft.class_1657;
-import net.minecraft.class_1792;
-import net.minecraft.class_1799;
-import net.minecraft.class_1839;
-import net.minecraft.class_1937;
-import net.minecraft.class_5328;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.UseAction;
+import net.minecraft.world.World;
+import net.minecraft.item.ItemUsage;
 
-public class RavagerMeat extends class_1792 {
+public class RavagerMeat extends Item {
    private static final int MAX_USAGE_TIME = 100;
 
-   public RavagerMeat(class_1792.class_1793 settings) {
+   public RavagerMeat(Item.class_1793 settings) {
       super(settings);
    }
 
-   public class_1271<class_1799> method_7836(class_1937 world, class_1657 user, class_1268 hand) {
-      return class_5328.method_29282(world, user, hand);
+   public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+      return ItemUsage.consumeHeldItem(world, user, hand);
    }
 
-   public class_1839 method_7853(class_1799 stack) {
-      return class_1839.field_8950;
+   public UseAction getUseAction(ItemStack stack) {
+      return UseAction.EAT;
    }
 
-   public int method_7881(class_1799 stack) {
+   public int getMaxUseTime(ItemStack stack) {
       return 100;
    }
 }
