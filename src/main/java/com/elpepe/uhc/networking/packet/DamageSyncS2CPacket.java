@@ -2,16 +2,13 @@ package com.elpepe.uhc.networking.packet;
 
 import com.elpepe.uhc.client.UhcClientData;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.class_2540;
-import net.minecraft.class_310;
-import net.minecraft.class_634;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.network.PacketByteBuf;
 
 public class DamageSyncS2CPacket {
-   public DamageSyncS2CPacket() {
-   }
-
-   public static void receive(class_310 client, class_634 handler, class_2540 buf, PacketSender responseSender) {
-      UhcClientData.damageAmount = buf.readFloat();
-      UhcClientData.renderDamageAmountTime = 50;
-   }
+    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+        UhcClientData.damageAmount = buf.readFloat();
+        UhcClientData.renderDamageAmountTime = 50;
+    }
 }

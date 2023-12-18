@@ -1,9 +1,9 @@
 package com.elpepe.uhc.entity.goal;
 
-import net.minecraft.class_2338;
+import net.minecraft.util.math.BlockPos;
 
 public interface EntityWithHome {
-   void setHome(class_2338 var1);
+    BlockPos getHome();
 
-   class_2338 getHome();
+    void setHome(BlockPos home);
 }

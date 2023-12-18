@@ -1,7 +1,7 @@
 package com.elpepe.uhc.util;
 
-import net.minecraft.class_2487;
+import net.minecraft.nbt.NbtCompound;
 
 public interface IEntityDataSaver {
-   class_2487 getPersistentData();
+    NbtCompound getPersistentData();
 }

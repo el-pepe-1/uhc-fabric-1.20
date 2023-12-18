@@ -1,193 +1,193 @@
 package com.elpepe.uhc.entity.custom;
 
 import com.elpepe.uhc.entity.ModEntities;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
 import java.util.List;
 import java.util.UUID;
-import net.minecraft.class_1293;
-import net.minecraft.class_1294;
-import net.minecraft.class_1297;
-import net.minecraft.class_1299;
-import net.minecraft.class_1309;
-import net.minecraft.class_1657;
-import net.minecraft.class_1665;
-import net.minecraft.class_1675;
-import net.minecraft.class_1799;
-import net.minecraft.class_1937;
-import net.minecraft.class_239;
-import net.minecraft.class_243;
-import net.minecraft.class_2940;
-import net.minecraft.class_2943;
-import net.minecraft.class_2945;
-import net.minecraft.class_3218;
-import net.minecraft.class_3965;
-import net.minecraft.class_3966;
-import net.minecraft.class_4970;
-import net.minecraft.class_239.class_240;
 
-public class HarpoonProjectileEntity extends class_1665 {
-   private static final List<class_1299<?>> BIG_ENTITIES;
-   private static final class_2940<Integer> CAN_FLY;
-   private static final class_2940<Integer> FLEW;
-   private class_1799 heldItem;
-   private class_243 moveDirection;
-   private boolean goesBackwards;
-   private UUID caughtEntityUUID;
+public class HarpoonProjectileEntity extends PersistentProjectileEntity {
+    private static final List<EntityType<?>> BIG_ENTITIES = List.of(EntityType.IRON_GOLEM, EntityType.PANDA, EntityType.POLAR_BEAR, EntityType.HOGLIN, EntityType.ZOGLIN,
+            EntityType.SNIFFER, EntityType.CAMEL, EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.RAVAGER);
+    private static final TrackedData<Integer> CAN_FLY = DataTracker.registerData(HarpoonProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> FLEW = DataTracker.registerData(HarpoonProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-   public HarpoonProjectileEntity(class_1299<? extends class_1665> entityType, class_1937 world) {
-      super(entityType, world);
-   }
+    private ItemStack heldItem;
+    private Vec3d moveDirection;
+    private boolean goesBackwards;
+    private UUID caughtEntityUUID;
 
-   public HarpoonProjectileEntity(class_1937 world, class_1657 player, class_1799 heldItem) {
-      super(ModEntities.HARPOON_PROJECTILE, world);
-      this.method_7432(player);
-      this.heldItem = heldItem;
-      this.moveDirection = player.method_5720();
-      this.goesBackwards = false;
-      this.caughtEntityUUID = null;
-      this.method_5808(player.method_23317(), player.method_23318() + 1.75, player.method_23321(), this.method_36454(), this.method_36455());
-      this.heldItem.method_7948().method_10567("shooting", (byte)1);
-   }
+    public HarpoonProjectileEntity(EntityType<? extends HarpoonProjectileEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
-   public void method_5773() {
-      super.method_5773();
-      if (this.field_7588 || this.field_6012 > 300) {
-         this.method_31472();
-      }
+    public HarpoonProjectileEntity(World world, PlayerEntity player, ItemStack heldItem) {
+        super(ModEntities.HARPOON_PROJECTILE, world);
+        this.setOwner(player);
+        this.heldItem = heldItem;
+        this.moveDirection = player.getRotationVector();
+        this.goesBackwards = false;
+        this.caughtEntityUUID = null;
+        this.refreshPositionAndAngles(player.getX(), player.getY() + 1.75, player.getZ(), this.getYaw(), this.getPitch());
+        this.heldItem.getOrCreateNbt().putByte("shooting", (byte) 1);
+    }
 
-      if (!this.method_37908().method_8608()) {
-         if (this.method_24921() != null) {
-            ((class_1309)this.method_24921()).method_6092(new class_1293(class_1294.field_5909, 5, 100, false, false, false));
-            this.setOwnerVelocity(new class_243(0.0, this.method_24921().method_24828() ? 0.0 : this.method_24921().method_18798().method_10214(), 0.0));
-            ((class_1657)this.method_24921()).method_7357().method_7906(this.heldItem.method_7909(), 100);
-         }
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.inGround || this.age > 300) {
+            this.discard();
+        }
 
-         if (this.getFlew() >= this.getCanFly() && this.goesBackwards) {
-            this.method_31472();
-         } else if (this.getFlew() >= this.getCanFly() && !this.goesBackwards) {
-            this.goesBackwards = true;
-            this.setFlew(0);
-         }
-
-         if (this.moveDirection != null) {
-            int direction = this.goesBackwards ? -1 : 1;
-            class_243 vec = this.moveDirection.method_1021(0.35).method_1021((double)direction);
-            this.method_18799(vec);
-            if (this.caughtEntityUUID != null) {
-               class_1937 var4 = this.method_37908();
-               if (var4 instanceof class_3218) {
-                  class_3218 serverWorld = (class_3218)var4;
-                  class_1297 entity = serverWorld.method_14190(this.caughtEntityUUID);
-                  if (entity instanceof class_1309) {
-                     entity.method_18799(vec.method_18805(1.0, 0.0, 1.0));
-                     entity.field_6037 = true;
-                  }
-               }
+        if (!this.getWorld().isClient()) {
+            if (this.getOwner() != null) {
+                ((LivingEntity) this.getOwner()).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 5, 100, false, false, false));
+                this.setOwnerVelocity(new Vec3d(0.0, this.getOwner().isOnGround() ? 0.0 : this.getOwner().getVelocity().getY(), 0.0));
+                ((PlayerEntity) this.getOwner()).getItemCooldownManager().set(this.heldItem.getItem(), 100);
             }
-         }
-      }
 
-      class_239 hitresult = class_1675.method_49997(this, (x$0) -> {
-         return this.method_26958(x$0);
-      });
-      if (hitresult.method_17783() != class_240.field_1333) {
-         this.method_7488(hitresult);
-      }
+            if (this.getFlew() >= this.getCanFly() && this.goesBackwards) {
+                this.discard();
+            } else if (this.getFlew() >= this.getCanFly() && !this.goesBackwards) {
+                this.goesBackwards = true;
+                this.setFlew(0);
+            }
 
-      this.method_26962();
-      if (this.method_37908().method_29546(this.method_5829()).noneMatch(class_4970.class_4971::method_26215)) {
-         this.method_31472();
-      } else if (this.method_5816()) {
-         this.method_31472();
-      }
+            if (this.moveDirection != null) {
+                int direction = this.goesBackwards ? -1 : 1;
+                Vec3d vec = this.moveDirection.multiply(0.35).multiply(direction);
+                this.setVelocity(vec);
+                if (this.caughtEntityUUID != null) {
+                    World world = this.getWorld();
+                    if (world instanceof ServerWorld serverWorld) {
+                        Entity entity = serverWorld.getEntity(this.caughtEntityUUID);
+                        if (entity instanceof LivingEntity) {
+                            entity.setVelocity(vec.multiply(1.0, 0.0, 1.0));
+                            entity.velocityModified = true;
+                        }
+                    }
+                }
+            }
+        }
 
-      this.setFlew(this.getFlew() + 1);
-   }
+        HitResult hitresult = ProjectileUtil.getCollision(this, this::canHit);
+        if (hitresult.getType() != HitResult.Type.MISS) {
+            this.onCollision(hitresult);
+        }
 
-   protected void method_7454(class_3966 entityHitResult) {
-      if (!this.method_37908().method_8608()) {
-         if (this.method_24921() == null) {
-            this.method_31472();
-         }
+        this.updateRotation();
+        if (this.getWorld().getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
+            this.discard();
+        } else if (this.isInsideWaterOrBubbleColumn()) {
+            this.discard();
+        }
 
-         if (entityHitResult.method_17782() == this.method_24921()) {
-            return;
-         }
+        this.setFlew(this.getFlew() + 1);
+    }
 
-         if (!this.goesBackwards) {
-            entityHitResult.method_17782().method_5643(this.method_48923().method_48803(this, this.method_24921()), 2.0F);
-         }
+    @Override
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        if (!this.getWorld().isClient()) {
+            if (this.getOwner() == null) {
+                this.discard();
+            }
 
-         if (BIG_ENTITIES.contains(entityHitResult.method_17782().method_5864())) {
-            this.caughtEntityUUID = this.method_24921().method_5667();
-            this.moveDirection = this.moveDirection.method_1021(-1.0);
-            this.method_5648(true);
-            this.method_20620(this.method_24921().method_23317(), this.method_24921().method_23318() + 1.75, this.method_24921().method_23321());
-         } else {
-            this.caughtEntityUUID = entityHitResult.method_17782().method_5667();
-         }
+            if (entityHitResult.getEntity() == this.getOwner()) {
+                return;
+            }
 
-         this.setCanFly(this.getFlew());
-         this.setFlew(0);
-         this.goesBackwards = true;
-      }
+            if (!this.goesBackwards) {
+                entityHitResult.getEntity().damage(this.getDamageSources().arrow(this, this.getOwner()), 2.0F);
+            }
 
-   }
+            if (BIG_ENTITIES.contains(entityHitResult.getEntity().getType())) {
+                this.caughtEntityUUID = this.getOwner().getUuid();
+                this.moveDirection = this.moveDirection.multiply(-1.0);
+                this.setInvisible(true);
+                this.teleport(this.getOwner().getX(), this.getOwner().getY() + 1.75, this.getOwner().getZ());
+            } else {
+                this.caughtEntityUUID = entityHitResult.getEntity().getUuid();
+            }
 
-   protected void method_24920(class_3965 blockHitResult) {
-      if (this.method_24921() != null && !this.method_37908().method_8608()) {
-         class_243 vec = blockHitResult.method_17784().method_1020(this.method_24921().method_19538()).method_1029();
-         this.setOwnerVelocity(vec.method_18805(2.5, 1.0, 2.5));
-      }
+            this.setCanFly(this.getFlew());
+            this.setFlew(0);
+            this.goesBackwards = true;
+        }
 
-      this.method_31472();
-   }
+    }
 
-   private void setOwnerVelocity(class_243 velocity) {
-      if (this.method_24921() != null) {
-         this.method_24921().method_18799(velocity);
-         this.method_24921().field_6037 = true;
-      }
+    @Override
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+        if (this.getOwner() != null && !this.getWorld().isClient()) {
+            Vec3d vec = blockHitResult.getPos().subtract(this.getOwner().getPos()).normalize();
+            this.setOwnerVelocity(vec.multiply(2.5, 1.0, 2.5));
+        }
 
-   }
+        this.discard();
+    }
 
-   public void setCanFly(int canFly) {
-      this.field_6011.method_12778(CAN_FLY, canFly);
-   }
+    private void setOwnerVelocity(Vec3d velocity) {
+        if (this.getOwner() != null) {
+            this.getOwner().setVelocity(velocity);
+            this.getOwner().velocityModified = true;
+        }
 
-   public void setFlew(int flew) {
-      this.field_6011.method_12778(FLEW, flew);
-   }
+    }
 
-   public int getCanFly() {
-      return (Integer)this.field_6011.method_12789(CAN_FLY);
-   }
+    public int getCanFly() {
+        return this.dataTracker.get(CAN_FLY);
+    }
 
-   public int getFlew() {
-      return (Integer)this.field_6011.method_12789(FLEW);
-   }
+    public void setCanFly(int canFly) {
+        this.dataTracker.set(CAN_FLY, canFly);
+    }
 
-   protected void method_5693() {
-      super.method_5693();
-      this.field_6011.method_12784(CAN_FLY, 0);
-      this.field_6011.method_12784(FLEW, 0);
-   }
+    public int getFlew() {
+        return this.dataTracker.get(FLEW);
+    }
 
-   protected class_1799 method_7445() {
-      return class_1799.field_8037;
-   }
+    public void setFlew(int flew) {
+        this.dataTracker.set(FLEW, flew);
+    }
 
-   public boolean method_5740() {
-      return true;
-   }
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(CAN_FLY, 0);
+        this.dataTracker.startTracking(FLEW, 0);
+    }
 
-   public void method_36209() {
-      this.heldItem.method_7948().method_10567("shooting", (byte)0);
-      super.method_36209();
-   }
+    @Override
+    protected ItemStack asItemStack() {
+        return ItemStack.EMPTY;
+    }
 
-   static {
-      BIG_ENTITIES = List.of(class_1299.field_6147, class_1299.field_6146, class_1299.field_6042, class_1299.field_21973, class_1299.field_23696, class_1299.field_42622, class_1299.field_40116, class_1299.field_6116, class_1299.field_6119, class_1299.field_6134);
-      CAN_FLY = class_2945.method_12791(HarpoonProjectileEntity.class, class_2943.field_13327);
-      FLEW = class_2945.method_12791(HarpoonProjectileEntity.class, class_2943.field_13327);
-   }
+    @Override
+    public boolean hasNoGravity() {
+        return true;
+    }
+
+    @Override
+    public void onRemoved() {
+        this.heldItem.getOrCreateNbt().putByte("shooting", (byte) 0);
+        super.onRemoved();
+    }
 }

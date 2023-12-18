@@ -1,20 +1,64 @@
 package com.elpepe.uhc.entity.animations;
 
-import net.minecraft.class_7179;
-import net.minecraft.class_7184;
-import net.minecraft.class_7186;
-import net.minecraft.class_7187;
-import net.minecraft.class_7179.class_7181;
-import net.minecraft.class_7179.class_7183;
-import net.minecraft.class_7184.class_7185;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.AnimationHelper;
+import net.minecraft.client.render.entity.animation.Keyframe;
+import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.Transformation.Targets;
+import net.minecraft.client.render.entity.animation.Transformation.Interpolations;
 
 public class ModAnimations {
-   public static final class_7184 LAVA_SWORD_PROJECTILE_IDLE;
-
-   public ModAnimations() {
-   }
-
-   static {
-      LAVA_SWORD_PROJECTILE_IDLE = class_7185.method_41818(4.0F).method_41817().method_41820("lava_sword_projectile", new class_7179(class_7183.field_37886, new class_7186[]{new class_7186(0.0F, class_7187.method_41823(0.0F, 3.0F, 0.0F), class_7181.field_37884), new class_7186(1.0F, class_7187.method_41823(0.0F, 3.0F, 0.0F), class_7181.field_37884), new class_7186(3.0F, class_7187.method_41823(0.0F, -3.0F, 0.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884)})).method_41820("ring", new class_7179(class_7183.field_37886, new class_7186[]{new class_7186(0.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884)})).method_41820("ring", new class_7179(class_7183.field_37887, new class_7186[]{new class_7186(0.0F, class_7187.method_41829(0.0F, 0.0F, 0.0F), class_7181.field_37884), new class_7186(1.0F, class_7187.method_41829(0.0F, -12.5F, 180.0F), class_7181.field_37884), new class_7186(2.0F, class_7187.method_41829(0.0F, 0.0F, 360.0F), class_7181.field_37884), new class_7186(3.0F, class_7187.method_41829(0.0F, 12.5F, 540.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41829(0.0F, 0.0F, 720.0F), class_7181.field_37884)})).method_41820("ring", new class_7179(class_7183.field_37888, new class_7186[]{new class_7186(0.0F, class_7187.method_41822(1.100000023841858, 1.100000023841858, 1.0), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41822(1.100000023841858, 1.100000023841858, 1.0), class_7181.field_37884)})).method_41820("ring2", new class_7179(class_7183.field_37886, new class_7186[]{new class_7186(0.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884)})).method_41820("ring2", new class_7179(class_7183.field_37887, new class_7186[]{new class_7186(0.0F, class_7187.method_41829(0.0F, 0.0F, 0.0F), class_7181.field_37884), new class_7186(1.0F, class_7187.method_41829(0.0F, 180.0F, 15.0F), class_7181.field_37884), new class_7186(2.0F, class_7187.method_41829(0.0F, 360.0F, 0.0F), class_7181.field_37884), new class_7186(3.0F, class_7187.method_41829(0.0F, 540.0F, 15.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41829(0.0F, 720.0F, 0.0F), class_7181.field_37884)})).method_41820("ring2", new class_7179(class_7183.field_37888, new class_7186[]{new class_7186(0.0F, class_7187.method_41822(1.0, 1.0, 1.0), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41822(1.0, 1.0, 1.0), class_7181.field_37884)})).method_41820("ring3", new class_7179(class_7183.field_37886, new class_7186[]{new class_7186(0.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884)})).method_41820("ring3", new class_7179(class_7183.field_37887, new class_7186[]{new class_7186(0.0F, class_7187.method_41829(0.0F, 0.0F, 0.0F), class_7181.field_37884), new class_7186(2.0F, class_7187.method_41829(0.0F, 0.0F, 360.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41829(0.0F, 0.0F, 720.0F), class_7181.field_37884)})).method_41820("ring3", new class_7179(class_7183.field_37888, new class_7186[]{new class_7186(0.0F, class_7187.method_41822(1.0, 0.8999999761581421, 0.8999999761581421), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41822(1.0, 0.8999999761581421, 0.8999999761581421), class_7181.field_37884)})).method_41820("heart", new class_7179(class_7183.field_37886, new class_7186[]{new class_7186(0.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41823(0.0F, 0.0F, 0.0F), class_7181.field_37884)})).method_41820("heart", new class_7179(class_7183.field_37887, new class_7186[]{new class_7186(0.0F, class_7187.method_41829(0.0F, 14.0F, 0.0F), class_7181.field_37884), new class_7186(1.0F, class_7187.method_41829(0.0F, 360.0F, 42.5F), class_7181.field_37884), new class_7186(3.0F, class_7187.method_41829(0.0F, 720.0F, -42.5F), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41829(0.0F, 360.0F, 0.0F), class_7181.field_37884)})).method_41820("heart", new class_7179(class_7183.field_37888, new class_7186[]{new class_7186(0.0F, class_7187.method_41822(1.0, 1.0, 1.0), class_7181.field_37884), new class_7186(2.0F, class_7187.method_41822(1.25, 1.25, 1.25), class_7181.field_37884), new class_7186(4.0F, class_7187.method_41822(1.0, 1.0, 1.0), class_7181.field_37884)})).method_41821();
-   }
+    public static final Animation LAVA_SWORD_PROJECTILE_IDLE = Animation.Builder.create(4.0F).looping()
+            .addBoneAnimation("lava_sword_projectile", new Transformation(Targets.TRANSLATE,
+                    new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 3.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 3.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(3.0F, AnimationHelper.createTranslationalVector(0.0F, -3.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("ring", new Transformation(Targets.TRANSLATE,
+                    new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("ring", new Transformation(Targets.ROTATE,
+                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, -12.5F, 180.0F), Interpolations.LINEAR),
+                    new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 360.0F), Interpolations.LINEAR),
+                    new Keyframe(3.0F, AnimationHelper.createRotationalVector(0.0F, 12.5F, 540.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 720.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("ring", new Transformation(Targets.SCALE,
+                    new Keyframe(0.0F, AnimationHelper.createScalingVector(1.100000023841858, 1.100000023841858, 1.0), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createScalingVector(1.100000023841858, 1.100000023841858, 1.0), Interpolations.LINEAR)))
+            .addBoneAnimation("ring2", new Transformation(Targets.TRANSLATE,
+                    new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("ring2", new Transformation(Targets.ROTATE,
+                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 180.0F, 15.0F), Interpolations.LINEAR),
+                    new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 360.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(3.0F, AnimationHelper.createRotationalVector(0.0F, 540.0F, 15.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createRotationalVector(0.0F, 720.0F, 0.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("ring2", new Transformation(Targets.SCALE,
+                    new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0, 1.0, 1.0), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createScalingVector(1.0, 1.0, 1.0), Interpolations.LINEAR)))
+            .addBoneAnimation("ring3", new Transformation(Targets.TRANSLATE,
+                    new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("ring3", new Transformation(Targets.ROTATE,
+                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 360.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 720.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("ring3", new Transformation(Targets.SCALE,
+                    new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0, 0.8999999761581421, 0.8999999761581421), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createScalingVector(1.0, 0.8999999761581421, 0.8999999761581421), Interpolations.LINEAR)))
+            .addBoneAnimation("heart", new Transformation(Targets.TRANSLATE,
+                    new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("heart", new Transformation(Targets.ROTATE,
+                    new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 14.0F, 0.0F), Interpolations.LINEAR),
+                    new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 360.0F, 42.5F), Interpolations.LINEAR),
+                    new Keyframe(3.0F, AnimationHelper.createRotationalVector(0.0F, 720.0F, -42.5F), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createRotationalVector(0.0F, 360.0F, 0.0F), Interpolations.LINEAR)))
+            .addBoneAnimation("heart", new Transformation(Targets.SCALE,
+                    new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0, 1.0, 1.0), Interpolations.LINEAR),
+                    new Keyframe(2.0F, AnimationHelper.createScalingVector(1.25, 1.25, 1.25), Interpolations.LINEAR),
+                    new Keyframe(4.0F, AnimationHelper.createScalingVector(1.0, 1.0, 1.0), Interpolations.LINEAR)))
+            .build();
 }

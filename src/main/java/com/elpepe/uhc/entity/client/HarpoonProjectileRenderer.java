@@ -1,40 +1,43 @@
 package com.elpepe.uhc.entity.client;
 
+import com.elpepe.uhc.Uhc;
 import com.elpepe.uhc.entity.ModModelLayers;
 import com.elpepe.uhc.entity.custom.HarpoonProjectileEntity;
-import net.minecraft.class_2960;
-import net.minecraft.class_3532;
-import net.minecraft.class_4587;
-import net.minecraft.class_4588;
-import net.minecraft.class_4597;
-import net.minecraft.class_4608;
-import net.minecraft.class_5617;
-import net.minecraft.class_7833;
-import net.minecraft.class_897;
-import net.minecraft.class_918;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RotationAxis;
 
-public class HarpoonProjectileRenderer extends class_897<HarpoonProjectileEntity> {
-   public static final class_2960 TEXTURE = new class_2960("uhc", "textures/entity/harpoon_projectile.png");
-   protected HarpoonProjectileModel model;
+public class HarpoonProjectileRenderer extends EntityRenderer<HarpoonProjectileEntity> {
+    public static final Identifier TEXTURE = new Identifier(Uhc.MOD_ID, "textures/entity/harpoon_projectile.png");
+    protected HarpoonProjectileModel model;
 
-   public HarpoonProjectileRenderer(class_5617.class_5618 ctx) {
-      super(ctx);
-      this.model = new HarpoonProjectileModel(ctx.method_32167(ModModelLayers.HARPOON_PROJECTILE));
-   }
+    public HarpoonProjectileRenderer(EntityRendererFactory.Context ctx) {
+        super(ctx);
+        this.model = new HarpoonProjectileModel(ctx.getPart(ModModelLayers.HARPOON_PROJECTILE));
+    }
 
-   public void render(HarpoonProjectileEntity entity, float yaw, float tickDelta, class_4587 matrices, class_4597 vertexConsumers, int light) {
-      matrices.method_22903();
-      matrices.method_22904(0.0, -1.25, 0.0);
-      matrices.method_22905(1.0F, 1.1F, 1.0F);
-      matrices.method_22907(class_7833.field_40716.rotationDegrees(class_3532.method_16439(tickDelta, entity.field_5982, entity.method_36454()) - 90.0F));
-      matrices.method_22907(class_7833.field_40718.rotationDegrees(class_3532.method_16439(tickDelta, entity.field_6004, entity.method_36455()) + 90.0F));
-      class_4588 vertexconsumer = class_918.method_29711(vertexConsumers, this.model.method_23500(TEXTURE), false, false);
-      this.model.method_2828(matrices, vertexconsumer, light, class_4608.field_21444, 1.0F, 1.0F, 1.0F, 1.0F);
-      matrices.method_22909();
-      super.method_3936(entity, yaw, tickDelta, matrices, vertexConsumers, light);
-   }
+    @Override
+    public void render(HarpoonProjectileEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        matrices.push();
+        matrices.translate(0.0, -1.25, 0.0);
+        matrices.scale(1.0F, 1.1F, 1.0F);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 90.0F));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch()) + 90.0F));
+        VertexConsumer vertexconsumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, this.model.getLayer(TEXTURE), false, false);
+        this.model.render(matrices, vertexconsumer, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+        matrices.pop();
+        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
+    }
 
-   public class_2960 getTexture(HarpoonProjectileEntity entity) {
-      return TEXTURE;
-   }
+    @Override
+    public Identifier getTexture(HarpoonProjectileEntity entity) {
+        return TEXTURE;
+    }
 }

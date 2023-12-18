@@ -6,30 +6,27 @@ import com.elpepe.uhc.entity.custom.HarpoonProjectileEntity;
 import com.elpepe.uhc.entity.custom.LavaSwordProjectileEntity;
 import com.elpepe.uhc.villager.custom.MysteriousTraderEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.class_1299;
-import net.minecraft.class_1311;
-import net.minecraft.class_2378;
-import net.minecraft.class_2960;
-import net.minecraft.class_4048;
-import net.minecraft.class_7923;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 
 public class ModEntities {
-   public static final class_1299<HarpoonProjectileEntity> HARPOON_PROJECTILE;
-   public static final class_1299<MysteriousTraderEntity> MYSTERIOUS_TRADER;
-   public static final class_1299<LavaSwordProjectileEntity> LAVA_SWORD_PROJECTILE;
-   public static final class_1299<GoblinEntity> GOBLIN_ENTITY;
+    public static final EntityType<HarpoonProjectileEntity> HARPOON_PROJECTILE = Registry.register(Registries.ENTITY_TYPE, new Identifier(Uhc.MOD_ID, "harpoon_projectile"),
+            FabricEntityTypeBuilder.<HarpoonProjectileEntity>create(SpawnGroup.MISC, HarpoonProjectileEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
 
-   public ModEntities() {
-   }
+    public static final EntityType<MysteriousTraderEntity> MYSTERIOUS_TRADER = Registry.register(Registries.ENTITY_TYPE, new Identifier(Uhc.MOD_ID, "mysterious_trader"),
+            FabricEntityTypeBuilder.<MysteriousTraderEntity>create(SpawnGroup.MISC, MysteriousTraderEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.8F)).build());
 
-   public static void registerModEntities() {
-      Uhc.LOGGER.info("Registering Mod Entities for uhc");
-   }
+    public static final EntityType<LavaSwordProjectileEntity> LAVA_SWORD_PROJECTILE = Registry.register(Registries.ENTITY_TYPE, new Identifier(Uhc.MOD_ID, "lava_sword_projectile"),
+            FabricEntityTypeBuilder.<LavaSwordProjectileEntity>create(SpawnGroup.MISC, LavaSwordProjectileEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
 
-   static {
-      HARPOON_PROJECTILE = (class_1299)class_2378.method_10230(class_7923.field_41177, new class_2960("uhc", "harpoon_projectile"), FabricEntityTypeBuilder.create(class_1311.field_17715, HarpoonProjectileEntity::new).dimensions(class_4048.method_18385(0.5F, 0.5F)).build());
-      MYSTERIOUS_TRADER = (class_1299)class_2378.method_10230(class_7923.field_41177, new class_2960("uhc", "mysterious_trader"), FabricEntityTypeBuilder.create(class_1311.field_17715, MysteriousTraderEntity::new).dimensions(class_4048.method_18385(0.6F, 1.8F)).build());
-      LAVA_SWORD_PROJECTILE = (class_1299)class_2378.method_10230(class_7923.field_41177, new class_2960("uhc", "lava_sword_projectile"), FabricEntityTypeBuilder.create(class_1311.field_17715, LavaSwordProjectileEntity::new).dimensions(class_4048.method_18385(0.5F, 0.5F)).build());
-      GOBLIN_ENTITY = (class_1299)class_2378.method_10230(class_7923.field_41177, new class_2960("uhc", "goblin"), FabricEntityTypeBuilder.create(class_1311.field_6302, GoblinEntity::new).dimensions(class_4048.method_18385(0.6F, 1.8F)).build());
-   }
+    public static final EntityType<GoblinEntity> GOBLIN_ENTITY = Registry.register(Registries.ENTITY_TYPE, new Identifier(Uhc.MOD_ID, "goblin"),
+            FabricEntityTypeBuilder.<GoblinEntity>create(SpawnGroup.MONSTER, GoblinEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.8F)).build());
+
+    public static void registerModEntities() {
+        Uhc.LOGGER.info("Registering Mod Entities for " + Uhc.MOD_ID);
+    }
 }

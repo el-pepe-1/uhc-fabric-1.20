@@ -1,93 +1,91 @@
 package com.elpepe.uhc.block.entity;
 
-import net.minecraft.class_1262;
-import net.minecraft.class_1278;
-import net.minecraft.class_1657;
-import net.minecraft.class_1799;
-import net.minecraft.class_2350;
-import net.minecraft.class_2371;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
 @FunctionalInterface
-public interface ImplementedInventory extends class_1278 {
-   class_2371<class_1799> getItems();
+public interface ImplementedInventory extends SidedInventory {
+    static ImplementedInventory of(DefaultedList<ItemStack> items) {
+        return () -> items;
+    }
 
-   static ImplementedInventory of(class_2371<class_1799> items) {
-      return () -> {
-         return items;
-      };
-   }
+    static ImplementedInventory ofSize(int size) {
+        return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
+    }
 
-   static ImplementedInventory ofSize(int size) {
-      return of(class_2371.method_10213(size, class_1799.field_8037));
-   }
+    DefaultedList<ItemStack> getItems();
 
-   default int[] method_5494(class_2350 side) {
-      int[] result = new int[this.getItems().size()];
+    default int[] getAvailableSlots(Direction side) {
+        int[] result = new int[this.getItems().size()];
 
-      for(int i = 0; i < result.length; result[i] = i++) {
-      }
+        for (int i = 0; i < result.length; result[i] = i++) {
+        }
 
-      return result;
-   }
+        return result;
+    }
 
-   default boolean method_5492(int slot, class_1799 stack, @Nullable class_2350 side) {
-      return true;
-   }
+    default boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        return true;
+    }
 
-   default boolean method_5493(int slot, class_1799 stack, class_2350 side) {
-      return true;
-   }
+    default boolean canExtract(int slot, ItemStack stack, Direction side) {
+        return true;
+    }
 
-   default int method_5439() {
-      return this.getItems().size();
-   }
+    default int size() {
+        return this.getItems().size();
+    }
 
-   default boolean method_5442() {
-      for(int i = 0; i < this.method_5439(); ++i) {
-         class_1799 stack = this.method_5438(i);
-         if (!stack.method_7960()) {
-            return false;
-         }
-      }
+    default boolean isEmpty() {
+        for (int i = 0; i < this.size(); ++i) {
+            ItemStack stack = this.getStack(i);
+            if (!stack.isEmpty()) {
+                return false;
+            }
+        }
 
-      return true;
-   }
+        return true;
+    }
 
-   default class_1799 method_5438(int slot) {
-      return (class_1799)this.getItems().get(slot);
-   }
+    default ItemStack getStack(int slot) {
+        return this.getItems().get(slot);
+    }
 
-   default class_1799 method_5434(int slot, int count) {
-      class_1799 result = class_1262.method_5430(this.getItems(), slot, count);
-      if (!result.method_7960()) {
-         this.method_5431();
-      }
+    default ItemStack removeStack(int slot, int count) {
+        ItemStack result = Inventories.splitStack(this.getItems(), slot, count);
+        if (!result.isEmpty()) {
+            this.markDirty();
+        }
 
-      return result;
-   }
+        return result;
+    }
 
-   default class_1799 method_5441(int slot) {
-      return class_1262.method_5428(this.getItems(), slot);
-   }
+    default ItemStack removeStack(int slot) {
+        return Inventories.removeStack(this.getItems(), slot);
+    }
 
-   default void method_5447(int slot, class_1799 stack) {
-      this.getItems().set(slot, stack);
-      if (stack.method_7947() > this.method_5444()) {
-         stack.method_7939(this.method_5444());
-      }
+    default void setStack(int slot, ItemStack stack) {
+        this.getItems().set(slot, stack);
+        if (stack.getCount() > this.getMaxCountPerStack()) {
+            stack.setCount(this.getMaxCountPerStack());
+        }
 
-      this.method_5431();
-   }
+        this.markDirty();
+    }
 
-   default void method_5448() {
-      this.getItems().clear();
-   }
+    default void clear() {
+        this.getItems().clear();
+    }
 
-   default void method_5431() {
-   }
+    default void markDirty() {
+    }
 
-   default boolean method_5443(class_1657 player) {
-      return true;
-   }
+    default boolean canPlayerUse(PlayerEntity player) {
+        return true;
+    }
 }

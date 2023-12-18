@@ -3,36 +3,39 @@ package com.elpepe.uhc.item.other;
 import com.elpepe.uhc.block.ModBlocks;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.class_1304;
-import net.minecraft.class_1320;
-import net.minecraft.class_1322;
-import net.minecraft.class_1747;
-import net.minecraft.class_1792;
-import net.minecraft.class_3414;
-import net.minecraft.class_3417;
-import net.minecraft.class_5134;
-import net.minecraft.class_5151;
-import net.minecraft.class_1322.class_1323;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Equipment;
+import net.minecraft.item.Item;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 
-public class CastIronCauldronBlockItem extends class_1747 implements class_5151 {
-   private final Multimap<class_1320, class_1322> defaultModifiers;
+public class CastIronCauldronBlockItem extends BlockItem implements Equipment {
+    private final Multimap<EntityAttribute, EntityAttributeModifier> defaultModifiers;
 
-   public CastIronCauldronBlockItem(class_1792.class_1793 settings, float protection) {
-      super(ModBlocks.CAST_IRON_CAULDRON, settings);
-      ImmutableMultimap.Builder<class_1320, class_1322> builder = ImmutableMultimap.builder();
-      builder.put(class_5134.field_23724, new class_1322("Armor modifier", (double)protection, class_1323.field_6328));
-      this.defaultModifiers = builder.build();
-   }
+    public CastIronCauldronBlockItem(Item.Settings settings, float protection) {
+        super(ModBlocks.CAST_IRON_CAULDRON, settings);
+        ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier("Armor modifier", protection, Operation.ADDITION));
+        this.defaultModifiers = builder.build();
+    }
 
-   public Multimap<class_1320, class_1322> method_7844(class_1304 slot) {
-      return slot == this.method_7685() ? this.defaultModifiers : super.method_7844(slot);
-   }
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+        return slot == this.getSlotType() ? this.defaultModifiers : super.getAttributeModifiers(slot);
+    }
 
-   public class_1304 method_7685() {
-      return class_1304.field_6169;
-   }
+    @Override
+    public EquipmentSlot getSlotType() {
+        return EquipmentSlot.HEAD;
+    }
 
-   public class_3414 method_31570() {
-      return class_3417.field_14785;
-   }
+    @Override
+    public SoundEvent getEquipSound() {
+        return SoundEvents.BLOCK_ANVIL_PLACE;
+    }
 }

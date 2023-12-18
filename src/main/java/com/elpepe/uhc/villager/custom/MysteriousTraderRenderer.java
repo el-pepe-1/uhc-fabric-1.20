@@ -1,29 +1,32 @@
 package com.elpepe.uhc.villager.custom;
 
-import net.minecraft.class_2960;
-import net.minecraft.class_4004;
-import net.minecraft.class_4587;
-import net.minecraft.class_5602;
-import net.minecraft.class_5617;
-import net.minecraft.class_620;
-import net.minecraft.class_927;
-import net.minecraft.class_976;
+import com.elpepe.uhc.Uhc;
+import net.minecraft.util.Identifier;
+import net.minecraft.client.render.entity.feature.VillagerHeldItemFeatureRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.model.VillagerResemblingModel;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 
-public class MysteriousTraderRenderer extends class_927<MysteriousTraderEntity, class_620<MysteriousTraderEntity>> {
-   private static final class_2960 TEXTURE = new class_2960("uhc", "textures/entity/mysterious_trader.png");
+public class MysteriousTraderRenderer extends MobEntityRenderer<MysteriousTraderEntity, VillagerResemblingModel<MysteriousTraderEntity>> {
+   private static final Identifier TEXTURE = new Identifier(Uhc.MOD_ID, "textures/entity/mysterious_trader.png");
 
-   public MysteriousTraderRenderer(class_5617.class_5618 context) {
-      super(context, new class_620(context.method_32167(class_5602.field_27627)), 0.5F);
-      this.method_4046(new class_976(this, context.method_32170(), context.method_43338()));
-      this.method_4046(new class_4004(this, context.method_43338()));
+   public MysteriousTraderRenderer(EntityRendererFactory.Context context) {
+      super(context, new VillagerResemblingModel<>(context.getPart(EntityModelLayers.WANDERING_TRADER)), 0.5F);
+      this.addFeature(new HeadFeatureRenderer<>(this, context.getModelLoader(), context.getHeldItemRenderer()));
+      this.addFeature(new VillagerHeldItemFeatureRenderer<>(this, context.getHeldItemRenderer()));
    }
 
-   public class_2960 getTexture(MysteriousTraderEntity wanderingTraderEntity) {
+   @Override
+   public Identifier getTexture(MysteriousTraderEntity wanderingTraderEntity) {
       return TEXTURE;
    }
 
-   protected void scale(MysteriousTraderEntity wanderingTraderEntity, class_4587 matrixStack, float f) {
+   @Override
+   protected void scale(MysteriousTraderEntity wanderingTraderEntity, MatrixStack matrixStack, float f) {
       float g = 0.9375F;
-      matrixStack.method_22905(0.9375F, 0.9375F, 0.9375F);
+      matrixStack.scale(g, g, g);
    }
 }
