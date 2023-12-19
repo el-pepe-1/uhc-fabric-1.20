@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "uhc:block/cobbled_cryogenic_stone"
+  }
+}

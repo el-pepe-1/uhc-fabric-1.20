@@ -1,0 +1,141 @@
+{
+  "variants": {
+    "facing=north,above_campfire=false,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron"
+    },
+    "facing=south,above_campfire=false,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron",
+      "y": 180
+    },
+    "facing=west,above_campfire=false,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron",
+      "y": 270
+    },
+    "facing=east,above_campfire=false,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron",
+      "y":  90
+    },
+
+
+    "facing=north,above_campfire=true,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron_above_campfire"
+    },
+    "facing=south,above_campfire=true,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron_above_campfire",
+      "y": 180
+    },
+    "facing=west,above_campfire=true,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron_above_campfire",
+      "y": 270
+    },
+    "facing=east,above_campfire=true,water_level=0": {
+      "model": "uhc:block/cast_iron_cauldron_above_campfire",
+      "y":  90
+    },
+
+
+
+    "facing=north,above_campfire=false,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one"
+    },
+    "facing=south,above_campfire=false,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one",
+      "y": 180
+    },
+    "facing=west,above_campfire=false,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one",
+      "y": 270
+    },
+    "facing=east,above_campfire=false,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one",
+      "y":  90
+    },
+
+
+    "facing=north,above_campfire=true,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one_above_campfire"
+    },
+    "facing=south,above_campfire=true,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one_above_campfire",
+      "y": 180
+    },
+    "facing=west,above_campfire=true,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one_above_campfire",
+      "y": 270
+    },
+    "facing=east,above_campfire=true,water_level=1": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_one_above_campfire",
+      "y":  90
+    },
+
+
+
+    "facing=north,above_campfire=false,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two"
+    },
+    "facing=south,above_campfire=false,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two",
+      "y": 180
+    },
+    "facing=west,above_campfire=false,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two",
+      "y": 270
+    },
+    "facing=east,above_campfire=false,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two",
+      "y":  90
+    },
+
+
+    "facing=north,above_campfire=true,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two_above_campfire"
+    },
+    "facing=south,above_campfire=true,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two_above_campfire",
+      "y": 180
+    },
+    "facing=west,above_campfire=true,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two_above_campfire",
+      "y": 270
+    },
+    "facing=east,above_campfire=true,water_level=2": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_two_above_campfire",
+      "y":  90
+    },
+
+
+
+    "facing=north,above_campfire=false,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three"
+    },
+    "facing=south,above_campfire=false,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three",
+      "y": 180
+    },
+    "facing=west,above_campfire=false,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three",
+      "y": 270
+    },
+    "facing=east,above_campfire=false,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three",
+      "y":  90
+    },
+
+
+    "facing=north,above_campfire=true,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three_above_campfire"
+    },
+    "facing=south,above_campfire=true,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three_above_campfire",
+      "y": 180
+    },
+    "facing=west,above_campfire=true,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three_above_campfire",
+      "y": 270
+    },
+    "facing=east,above_campfire=true,water_level=3": {
+      "model": "uhc:block/cast_iron_cauldron_water_level_three_above_campfire",
+      "y":  90
+    }
+  }
+}

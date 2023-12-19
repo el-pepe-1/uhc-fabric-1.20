@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "uhc:item/night_vision_helmet"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "broken": 1
+      },
+      "model": "uhc:item/night_vision_helmet_broken"
+    }
+  ]
+}

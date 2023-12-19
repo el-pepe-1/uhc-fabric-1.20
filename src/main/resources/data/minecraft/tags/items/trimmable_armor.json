@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "uhc:nithril_helmet",
+    "uhc:nithril_chestplate",
+    "uhc:nithril_leggings",
+    "uhc:nithril_boots",
+    "uhc:poseidon_helmet",
+    "uhc:slime_boots",
+    "uhc:deathrun_leggings",
+    "uhc:feather_boots",
+    "uhc:magma_boots"
+  ]
+}

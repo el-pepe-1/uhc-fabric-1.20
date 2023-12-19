@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "item": "minecraft:emerald_block"
+    },
+    "H": {
+      "item": "minecraft:dragon_head"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "P": {
+      "item": "minecraft:diamond_pickaxe"
+    },
+    "b": {
+      "item": "minecraft:dragon_breath"
+    }
+  },
+  "pattern": [
+    "LHL",
+    "EPE",
+    "ObO"
+  ],
+  "result": {
+    "item": "uhc:dragon_pickaxe"
+  },
+  "show_notification": true
+}

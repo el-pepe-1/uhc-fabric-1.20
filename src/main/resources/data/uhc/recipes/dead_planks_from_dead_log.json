@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "dead_log",
+  "ingredients": [
+    {
+      "item": "uhc:dead_log"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "uhc:dead_planks"
+  }
+}

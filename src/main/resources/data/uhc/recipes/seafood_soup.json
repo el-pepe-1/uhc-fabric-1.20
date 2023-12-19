@@ -1,0 +1,18 @@
+{
+  "type": "uhc:cast_iron_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:sea_pickle"
+    },
+    {
+      "item": "minecraft:seagrass"
+    },
+    {
+      "item": "minecraft:tropical_fish"
+    }
+  ],
+  "output": {
+    "item": "uhc:seafood_soup",
+    "count": 1
+  }
+}

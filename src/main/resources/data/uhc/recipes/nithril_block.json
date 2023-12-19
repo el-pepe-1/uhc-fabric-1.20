@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    },
+    {
+      "item": "uhc:nithril_ingot"
+    }
+  ],
+  "result": {
+    "item": "uhc:nithril_block"
+  }
+}

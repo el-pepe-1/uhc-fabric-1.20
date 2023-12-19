@@ -1,0 +1,8 @@
+{
+  "asset_id": "uhc:earthquake",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.uhc.earthquake"
+  },
+  "template_item": "uhc:earthquake_armor_trim_smithing_template"
+}

@@ -1,0 +1,50 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "uhc:goblin_camp/roads/straight_01",
+        "processors": "uhc:goblin_camp_road",
+        "projection": "terrain_matching"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "uhc:goblin_camp/roads/straight_02",
+        "processors": "uhc:goblin_camp_road",
+        "projection": "terrain_matching"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "uhc:goblin_camp/roads/straight_03",
+        "processors": "uhc:goblin_camp_road",
+        "projection": "terrain_matching"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "uhc:goblin_camp/roads/turn_01",
+        "processors": "uhc:goblin_camp_road",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "uhc:goblin_camp/roads/crossroad_01",
+        "processors": "uhc:goblin_camp_road",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

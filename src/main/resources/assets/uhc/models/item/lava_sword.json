@@ -1,0 +1,28 @@
+{
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "uhc:item/lava_sword"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -270, 55],
+			"translation": [0, 4, 1.75],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 270, -55],
+			"translation": [0, 4, 1.75],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -270, -25],
+			"translation": [1.13, 3.2, 1.13],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 270, 25],
+			"translation": [1.13, 3.2, 1.13],
+			"scale": [0.68, 0.68, 0.68]
+		}
+	}
+}

@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "facing=north,active=false": {
+      "model": "uhc:block/radar_block_inactive"
+    },
+    "facing=south,active=false": {
+      "model": "uhc:block/radar_block_inactive",
+      "y": 180
+    },
+    "facing=west,active=false": {
+      "model": "uhc:block/radar_block_inactive",
+      "y": 270
+    },
+    "facing=east,active=false": {
+      "model": "uhc:block/radar_block_inactive",
+      "y":  90
+    },
+
+    "facing=north,active=true": {
+      "model": "uhc:block/radar_block_active"
+    },
+    "facing=south,active=true": {
+      "model": "uhc:block/radar_block_active",
+      "y": 180
+    },
+    "facing=west,active=true": {
+      "model": "uhc:block/radar_block_active",
+      "y": 270
+    },
+    "facing=east,active=true": {
+      "model": "uhc:block/radar_block_active",
+      "y":  90
+    }
+  }
+}

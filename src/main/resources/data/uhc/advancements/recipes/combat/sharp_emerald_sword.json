@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_emerald_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "uhc:emerald_sword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_stone_of_sharpness": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "uhc:stone_of_sharpness"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:sharp_emerald_sword"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_emerald_sword",
+      "has_stone_of_sharpness",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:sharp_emerald_sword"
+    ]
+  },
+  "sends_telemetry_event": false
+}

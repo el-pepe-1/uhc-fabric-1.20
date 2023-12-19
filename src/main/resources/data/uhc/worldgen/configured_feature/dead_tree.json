@@ -1,0 +1,11 @@
+{
+  "type": "uhc:dead_tree",
+  "config": {
+    "state": {
+      "Name": "uhc:dead_log",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}

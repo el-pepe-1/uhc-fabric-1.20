@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "uhc:cobbled_cryogenic_stone_wall",
+    "uhc:cryogenic_stone_wall"
+  ]
+}

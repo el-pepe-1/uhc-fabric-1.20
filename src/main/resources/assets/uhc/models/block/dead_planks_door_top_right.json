@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right",
+  "textures": {
+    "bottom": "uhc:block/dead_planks_door_bottom",
+    "top": "uhc:block/dead_planks_door_top"
+  }
+}

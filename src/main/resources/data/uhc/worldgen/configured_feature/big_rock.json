@@ -1,0 +1,34 @@
+{
+  "type": "uhc:big_rock",
+  "config": {
+    "additional_block": {
+      "Name": "uhc:cryogenic_stone"
+    },
+    "blocks": {
+      "states": [
+        {
+          "chance": 0.1,
+          "state": {
+            "Name": "minecraft:andesite"
+          }
+        },
+        {
+          "chance": 0.25,
+          "state": {
+            "Name": "minecraft:cobblestone"
+          }
+        },
+        {
+          "chance": 0.75,
+          "state": {
+            "Name": "minecraft:stone"
+          }
+        }
+      ]
+    },
+    "freeze_block": {
+      "Name": "uhc:gray_ice"
+    },
+    "height": 4
+  }
+}

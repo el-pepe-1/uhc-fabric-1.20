@@ -1,0 +1,18 @@
+{
+  "type": "uhc:cast_iron_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:poisonous_potato"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:chicken"
+    }
+  ],
+  "output": {
+    "item": "uhc:poisonous_soup",
+    "count": 1
+  }
+}

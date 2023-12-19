@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "uhc:mysterious_trader_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1642136474,
+    "spacing": 34,
+    "separation": 8,
+    "type": "minecraft:random_spread"
+  }
+}

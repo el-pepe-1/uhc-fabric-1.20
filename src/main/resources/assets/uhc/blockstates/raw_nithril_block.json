@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "uhc:block/raw_nithril_block"
+    }
+  }
+}

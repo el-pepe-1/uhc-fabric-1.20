@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "uhc:dragon_pickaxe"
+  },
+  "result": {
+    "item": "uhc:netherite_covered_dragon_pickaxe"
+  },
+  "template": []
+}

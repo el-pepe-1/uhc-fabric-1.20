@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "uhc:block/cobbled_cryogenic_stone_slab"
+    },
+    "type=double": {
+      "model": "uhc:block/cobbled_cryogenic_stone"
+    },
+    "type=top": {
+      "model": "uhc:block/cobbled_cryogenic_stone_slab_top"
+    }
+  }
+}

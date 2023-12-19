@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "uhc:dead_log",
+    "uhc:dead_wood",
+    "uhc:stripped_dead_log",
+    "uhc:stripped_dead_wood"
+  ]
+}

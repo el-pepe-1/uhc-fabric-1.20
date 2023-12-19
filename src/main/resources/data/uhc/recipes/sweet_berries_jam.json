@@ -1,0 +1,18 @@
+{
+  "type": "uhc:cast_iron_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "output": {
+    "item": "uhc:sweet_berries_jam",
+    "count": 1
+  }
+}

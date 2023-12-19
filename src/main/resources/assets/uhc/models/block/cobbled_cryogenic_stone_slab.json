@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "uhc:block/cobbled_cryogenic_stone",
+    "side": "uhc:block/cobbled_cryogenic_stone",
+    "top": "uhc:block/cobbled_cryogenic_stone"
+  }
+}

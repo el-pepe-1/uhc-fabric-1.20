@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "uhc:stone_of_sharpness"
+  },
+  "base": {
+    "item": "uhc:emerald_sword"
+  },
+  "result": {
+    "item": "uhc:sharp_emerald_sword"
+  },
+  "template": []
+}

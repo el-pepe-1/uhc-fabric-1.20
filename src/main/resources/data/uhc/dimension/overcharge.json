@@ -1,0 +1,64 @@
+
+{
+  "type": "uhc:overcharge_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "uhc:overcharge",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "uhc:icy_wasteland",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "uhc:dead_forest",
+          "parameters": {
+            "temperature": 0,
+            "humidity": -0.5,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "uhc:purple_cliffs",
+          "parameters": {
+            "erosion": [
+              -0.7799,
+              -0.375
+            ],
+            "depth": 0.0,
+            "weirdness": [
+              -0.9333,
+              -0.7666
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -1.0,
+              -0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "continentalness": [
+              -0.11,
+              0.03
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

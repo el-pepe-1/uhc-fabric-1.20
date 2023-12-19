@@ -1,0 +1,14 @@
+{
+  "health_jar_consume": {
+    "subtitle": "sounds.uhc.health_jar_consume",
+    "sounds": [
+      "uhc:health_jar_consume"
+    ]
+  },
+  "airtag_alarm": {
+    "subtitle": "sound.uhc.airtag_alarm",
+    "sounds": [
+      "uhc:airtag_alarm"
+    ]
+  }
+}
